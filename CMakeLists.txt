@@ -94,8 +94,8 @@ endif()
 add_compile_options(${COMPILER_OPTIONS})
 string(REPLACE ";" " " CMAKE_REQUIRED_FLAGS "${COMPILER_OPTIONS}")
 
-#configure_file(${CMAKE_SOURCE_DIR}/include/shelley/autoconf.h.in ${CMAKE_SOURCE_DIR}/include/shelley/autoconf.h)
-#
+configure_file(${CMAKE_SOURCE_DIR}/src/include/autoconf.h.in ${CMAKE_SOURCE_DIR}/src/include/autoconf.h)
+
 add_subdirectory(src)
 #
 #if(BUILD_TESTS)

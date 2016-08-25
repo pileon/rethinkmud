@@ -165,3 +165,4 @@ fabric.properties
 *.dSYM/
 *.su
 
+src/include/autoconf.h
