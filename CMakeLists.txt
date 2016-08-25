@@ -3,7 +3,7 @@ project(rethinkmud
         VERSION 0.0.1
         LANGUAGES CXX C)
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG -O0")
 
 include(CheckCXXCompilerFlag)
 
@@ -94,12 +94,9 @@ endif()
 add_compile_options(${COMPILER_OPTIONS})
 string(REPLACE ";" " " CMAKE_REQUIRED_FLAGS "${COMPILER_OPTIONS}")
 
-set(SOURCE_FILES main.cpp)
-add_executable(rethinkmud ${SOURCE_FILES})
-
 #configure_file(${CMAKE_SOURCE_DIR}/include/shelley/autoconf.h.in ${CMAKE_SOURCE_DIR}/include/shelley/autoconf.h)
 #
-#add_subdirectory(src)
+add_subdirectory(src)
 #
 #if(BUILD_TESTS)
 #    enable_testing()
