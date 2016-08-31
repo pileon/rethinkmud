@@ -1,4 +1,4 @@
-#include <autoconf.h>
+#include "autoconf.h"
 #include <iostream>
 
 int main()

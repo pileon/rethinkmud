@@ -6,21 +6,20 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cmake/SetCompilerFlags.cmake" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="Header Search Paths">
         <CLASSES>
           <root url="file:///usr/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/6/include-fixed" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/6/include" />
           <root url="file:///usr/local/include" />
+          <root url="file:///usr/local/lib/clang/4.0.0/include" />
         </CLASSES>
         <SOURCES>
           <root url="file:///usr/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/6/include-fixed" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/6/include" />
           <root url="file:///usr/local/include" />
+          <root url="file:///usr/local/lib/clang/4.0.0/include" />
         </SOURCES>
       </library>
     </orderEntry>
