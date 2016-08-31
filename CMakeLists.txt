@@ -6,6 +6,7 @@ project(rethinkmud
 find_package(Threads)
 
 include(cmake/BuildFlags.cmake)
+include(cmake/RethinkDB.cmake)
 
 add_subdirectory(src)
 #
