@@ -5,7 +5,7 @@ project(rethinkmud
 
 find_package(Threads)
 
-include(cmake/SetCompilerFlags.cmake)
+include(cmake/BuildFlags.cmake)
 
 add_subdirectory(src)
 #
