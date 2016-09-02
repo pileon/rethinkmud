@@ -1,6 +1,7 @@
 #include "autoconf.h"
 #include <iostream>
 #include "../rethinkdbxx/rethinkdb.h"
+#include <experimental/filesystem>
 
 namespace R = RethinkDB;
 
@@ -12,8 +13,18 @@ int main()
     auto conn = R::connect();
     if (conn)
     {
-        std::cout << "Connected\n";
-        auto databases = R::db_list().run(*conn);
+        std::cout << "Connected\n" << std::flush;
+        R::Cursor databases = R::db_list().run(*conn);
+        for (R::Datum& db : databases)
+        {
+            std::cout << *db.get_string() << '\n';
+        }
+        //
+        //R::Cursor::iterator i = databases.begin();
+        //
+        //// This doesn't work! I don't know why
+        //i != databases.end();
+        ////++i)
     }
     else
     {

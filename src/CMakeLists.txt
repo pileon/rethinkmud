@@ -5,4 +5,5 @@ add_executable(rethinkmud ${SOURCE_FILES})
 target_include_directories(rethinkmud
         PRIVATE include)
 
-target_link_libraries(rethinkmud rethinkdbxx)
+add_dependencies(rethinkmud librethinkdbxx)
+target_link_libraries(rethinkmud ${CMAKE_BINARY_DIR}/rethinkdbxx/librethinkdb++.a)
