@@ -166,3 +166,5 @@ fabric.properties
 *.su
 
 src/include/autoconf.h
+/rethinkdbxx/rethinkdb.h
+/rethinkdbxx/rethinkdb.nodocs.h

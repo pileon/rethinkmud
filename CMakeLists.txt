@@ -6,10 +6,10 @@ project(rethinkmud
 find_package(Threads)
 
 include(cmake/BuildFlags.cmake)
-include(cmake/RethinkDB.cmake)
 
+add_subdirectory(rethinkdbxx)
 add_subdirectory(src)
-#
+
 #if(BUILD_TESTS)
 #    enable_testing()
 #    add_subdirectory(tests)

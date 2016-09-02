@@ -1,0 +1,3 @@
+[submodule "rethinkdbxx/librethinkdbxx"]
+	path = rethinkdbxx/librethinkdbxx
+	url = https://github.com/AtnNn/librethinkdbxx.git

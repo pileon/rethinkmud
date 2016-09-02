@@ -5,8 +5,21 @@
       <sourceFolder url="file://$MODULE_DIR$/src/include/autoconf.h.in" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/datum.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/utils.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/cursor.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/json.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/cursor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/utils.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/term.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/types.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/types.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/term.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/connection.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/connection.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/librethinkdbxx/src/datum.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/cmake/RethinkDB.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/BuildFlags.cmake" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
