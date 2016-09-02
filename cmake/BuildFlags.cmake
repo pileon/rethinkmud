@@ -28,10 +28,6 @@ check_cxx_compiler_flag(-Wimplicit-fallthrough HAVE_FLAG_WIMPLICIT_FALLTHROUGH)
 if(HAVE_FLAG_WIMPLICIT_FALLTHROUGH)
     list(APPEND COMPILER_OPTIONS -Wimplicit-fallthrough)
 endif()
-check_cxx_compiler_flag(-Wno-vla-extension HAVE_FLAG_WNO_VLA_EXTENSION)
-if(HAVE_FLAG_WNO_VLA_EXTENSION)
-    list(APPEND COMPILER_OPTIONS -Wno-vla-extension)
-endif()
 
 # Check for standard to use
 check_cxx_compiler_flag(-std=c++17 HAVE_FLAG_STD_CXX17)
