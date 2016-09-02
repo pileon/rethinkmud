@@ -13,6 +13,7 @@ int main()
     if (conn)
     {
         std::cout << "Connected\n";
+        auto databases = R::db_list().run(*conn);
     }
     else
     {
