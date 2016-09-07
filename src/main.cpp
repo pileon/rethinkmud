@@ -7,22 +7,22 @@ namespace R = RethinkDB;
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
     std::cout << "RethinkMUD version " << RETHINKMUD_VERSION << '\n';
 
-    auto conn = R::connect();
-    if (conn)
+    try
     {
+        auto conn = R::connect();
+
         std::cout << "Connected\n" << std::flush;
-        R::Cursor databases = R::db_list().run(*conn);
-        for (R::Datum& db : databases)
+        auto databases = R::db_list().run(*conn);
+        for (auto const& db : databases)
         {
             std::cout << *db.get_string() << '\n';
         }
     }
-    else
+    catch (R::Error& e)
     {
-        std::cerr << "Could not connect to server\n";
+        std::cerr << "Could not connect to server: " << e.message << '\n';
     }
 
     return 0;
