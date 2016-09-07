@@ -19,12 +19,6 @@ int main()
         {
             std::cout << *db.get_string() << '\n';
         }
-        //
-        //R::Cursor::iterator i = databases.begin();
-        //
-        //// This doesn't work! I don't know why
-        //i != databases.end();
-        ////++i)
     }
     else
     {
