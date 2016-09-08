@@ -1,6 +1,13 @@
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG -O0")
-
 include(CheckCXXCompilerFlag)
+
+check_cxx_compiler_flag(-D_DEBUG HAVE_FLAG_D)
+if(HAVE_FLAG_D)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
+endif()
+check_cxx_compiler_flag(-O0 HAVE_FLAG_O0)
+if(HAVE_FLAG_O0)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+endif()
 
 # Check for supported warning flags
 check_cxx_compiler_flag(-Wall HAVE_FLAG_WALL)
@@ -44,12 +51,24 @@ endif()
 
 check_cxx_compiler_flag(-stdlib=libc++ HAVE_FLAG_STDLIB_LIBCXX)
 
-# Check if we can build with `stdlib=libc++` without linking with `-lc++abi`
 if(HAVE_FLAG_STDLIB_LIBCXX)
-    # Check that libc++ actually exists
-    set(OLD_CMAKE_REQUIRED_FLAGS ${CMAKE_REQUIRED_FLAGS})
-    set(CMAKE_REQUIRED_FLAGS "-stdlib=libc++")
-    CHECK_CXX_SOURCE_COMPILES(
+    message(STATUS "Looking for libc++")
+    find_library(HAVE_LIBCXX c++)
+    if(NOT HAVE_LIBCXX)
+        message(FATAL "Need libc++")
+    endif()
+    message(STATUS "Looking for libc++ - found")
+
+    # Check for the ABI library, and if we can build with `-stdlib=libc++` without linking with `-lc++abi`
+    message(STATUS "Looking for libc++abi")
+    find_library(HAVE_LIBCXXABI c++abi)
+    if(NOT HAVE_LIBCXXABI)
+        message(STATUS "Looking for libc++abi - not found")
+    else()
+        message(STATUS "Looking for libc++abi - found")
+        set(OLD_CMAKE_REQUIRED_FLAGS ${CMAKE_REQUIRED_FLAGS})
+        set(CMAKE_REQUIRED_FLAGS "-stdlib=libc++")
+        CHECK_CXX_SOURCE_COMPILES(
             "#include <iostream>
             int main()
             {
@@ -57,7 +76,8 @@ if(HAVE_FLAG_STDLIB_LIBCXX)
             }"
             STDLIBCXX_WITHOUT_LIBCXXABI
             FAIL_REGEX "libc\\\\+\\\\+abi\\\\.so")
-    set(CMAKE_REQUIRED_FLAGS ${OLD_CMAKE_REQUIRED_FLAGS})
+        set(CMAKE_REQUIRED_FLAGS ${OLD_CMAKE_REQUIRED_FLAGS})
+    endif()
 endif()
 
 if(HAVE_FLAG_STDLIB_LIBCXX)
@@ -78,6 +98,7 @@ if(Threads_FOUND)
     endif()
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
     # TODO: Add the pthread linker library?
+    # TODO: Check if it is needed first
 endif()
 
 add_compile_options(${COMPILER_OPTIONS})
