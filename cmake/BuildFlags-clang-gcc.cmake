@@ -1,3 +1,12 @@
+check_cxx_compiler_flag(-D_DEBUG HAVE_FLAG_DDEBUG)
+if(HAVE_FLAG_DDEBUG)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
+endif()
+check_cxx_compiler_flag(-O0 HAVE_FLAG_O0)
+if(HAVE_FLAG_O0)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+endif()
+
 # Check for supported warning flags
 check_cxx_compiler_flag(-Wall HAVE_FLAG_WALL)
 if(HAVE_FLAG_WALL)

@@ -1,18 +1,12 @@
 include(CheckCXXCompilerFlag)
 
-check_cxx_compiler_flag(-D_DEBUG HAVE_FLAG_D)
-if(HAVE_FLAG_D)
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
-endif()
-check_cxx_compiler_flag(-O0 HAVE_FLAG_O0)
-if(HAVE_FLAG_O0)
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
-endif()
-
 if(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU)|(Clang)$")
     include(cmake/BuildFlags-clang-gcc.cmake)
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "^MSVC$")
+    # TODO: Implement this sometime
+    # include(cmake/BuildFlags-msvc.cmake)
 else()
-    # TODO: Most likely VC++, check for that an include the correct file for it
+    message(WARNING "Unknown compiler, do not know how to test for specific flags")
 endif()
 
 add_compile_options(${COMPILER_OPTIONS})
