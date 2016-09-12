@@ -16,3 +16,5 @@ target_link_libraries(rethinkmud ${CMAKE_BINARY_DIR}/rethinkdbxx/librethinkdb++.
 if(NOT STDLIBCXX_WITHOUT_LIBCXXABI)
     target_link_libraries(rethinkmud c++abi)
 endif()
+
+target_link_libraries(rethinkmud Boost::system)
