@@ -5,6 +5,11 @@ add_executable(rethinkmud ${SOURCE_FILES})
 target_include_directories(rethinkmud
         PRIVATE include)
 
+check_cxx_compiler_flag(-Wno-vla-extension HAVE_FLAG_WNO_VLA_EXTENSION)
+if(HAVE_FLAG_WNO_VLA_EXTENSION)
+    target_compile_options(rethinkmud PRIVATE -Wno-vla-extension)
+endif()
+
 add_dependencies(rethinkmud librethinkdbxx)
 target_link_libraries(rethinkmud ${CMAKE_BINARY_DIR}/rethinkdbxx/librethinkdb++.a)
 
