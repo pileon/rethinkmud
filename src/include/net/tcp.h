@@ -5,22 +5,26 @@
 #ifndef RETHINKMUD_TCP_H
 #define RETHINKMUD_TCP_H
 
-#include "server.h"
+#include "ip.h"
+#include "network.h"
 
 namespace rethinkmud
 {
     namespace net
     {
-        class tcp_server : public server
+        namespace servers
         {
-        public:
-            tcp_server() {}
-            virtual ~tcp_server() {}
+            class tcp : public ip<boost::asio::ip::tcp>
+            {
+            public:
+                explicit tcp(unsigned short port)
+                    : ip{port}
+                {}
 
-        protected:
-
-        private:
-        };
+                virtual ~tcp()
+                {}
+            };
+        }
     }
 }
 

@@ -5,6 +5,8 @@
 #ifndef RETHINKMUD_NETWORK_H
 #define RETHINKMUD_NETWORK_H
 
+#include <boost/asio.hpp>
+
 namespace rethinkmud
 {
     namespace net
@@ -16,6 +18,8 @@ namespace rethinkmud
         void stop();
 
         void clean();
+
+        boost::asio::io_service& get_io_service();
     }
 }
 

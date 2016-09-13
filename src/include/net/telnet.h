@@ -11,16 +11,23 @@ namespace rethinkmud
 {
     namespace net
     {
-        class telnet_server : public tcp_server
+        namespace servers
         {
-        public:
-            telnet_server() {}
-            ~telnet_server() {}
+            class telnet : public tcp
+            {
+            public:
+                explicit telnet(unsigned short port)
+                    : tcp{port}
+                {}
 
-        protected:
+                ~telnet()
+                {}
 
-        private:
-        };
+            protected:
+
+            private:
+            };
+        }
     }
 }
 

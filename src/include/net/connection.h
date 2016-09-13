@@ -2,26 +2,26 @@
 // Created by arrow on 9/13/16.
 //
 
-#ifndef RETHINKMUD_SERVER_H
-#define RETHINKMUD_SERVER_H
+#ifndef RETHINKMUD_CONNECTION_H
+#define RETHINKMUD_CONNECTION_H
 
 namespace rethinkmud
 {
     namespace net
     {
-        namespace servers
+        namespace connections
         {
             /**
              * \brief Abstract base class for all servers
              */
-            class basic_server
+            class basic_connection
             {
             public:
-                virtual ~basic_server()
+                virtual ~basic_connection()
                 {}
 
             protected:
-                basic_server()
+                basic_connection()
                 {}
 
             private:
@@ -30,4 +30,4 @@ namespace rethinkmud
     }
 }
 
-#endif //RETHINKMUD_SERVER_H
+#endif //RETHINKMUD_CONNECTION_H
