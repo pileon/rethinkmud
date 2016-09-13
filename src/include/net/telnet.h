@@ -11,13 +11,22 @@ namespace rethinkmud
 {
     namespace net
     {
+        namespace connections
+        {
+            class telnet : public tcp
+            {
+            public:
+                using tcp::tcp;
+            };
+        }
+
         namespace servers
         {
-            class telnet : public tcp_v4
+            class telnet : public tcp_v4<connections::telnet>
             {
             public:
                 explicit telnet(unsigned short port)
-                    : tcp_v4{port}
+                    : tcp_v4<connections::telnet>{port}
                 {}
 
                 ~telnet()

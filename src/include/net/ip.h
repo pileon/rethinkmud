@@ -24,14 +24,19 @@ namespace rethinkmud
             {
             public:
                 using socket_type = typename AddressFamilyT::socket;
+
                 ip(socket_type socket)
-                    : socket_{std::move(socket)}
+                    : basic_connection{},
+                      socket_{std::move(socket)}
                 {
 
                 }
 
                 void start()
-                {}
+                {
+                    // TODO: Start asynchronous reading from the socket
+                    // TODO: Handle input some nice way
+                }
 
             private:
                 socket_type socket_;
@@ -44,7 +49,7 @@ namespace rethinkmud
              * \brief Generic parent class for TCP or UDP servers
              * \tparam AddressFamilyT The TCP or UDP base class
              */
-            template<typename AddressFamilyT, AddressFamilyT (*version_func)()>
+            template<typename AddressFamilyT, AddressFamilyT (*version_func)(), typename ConnectionT>
             class ip : public basic_server
             {
             public:
@@ -75,7 +80,7 @@ namespace rethinkmud
                     {
                         if (!ec)
                         {
-                            std::make_shared<connections::ip<AddressFamilyT>>(std::move(socket_))->start();
+                            std::make_shared<ConnectionT>(std::move(socket_))->start();
                         }
 
                         do_accept();
@@ -83,11 +88,11 @@ namespace rethinkmud
                 }
             };
 
-            template<typename AddressFamilyT>
-            using ip_v4 = ip<AddressFamilyT, AddressFamilyT::v4>;
+            template<typename AddressFamilyT, typename ConnectionT>
+            using ip_v4 = ip<AddressFamilyT, AddressFamilyT::v4, ConnectionT>;
 
-            template<typename AddressFamilyT>
-            using ip_v6 = ip<AddressFamilyT, AddressFamilyT::v6>;
+            template<typename AddressFamilyT, typename ConnectionT>
+            using ip_v6 = ip<AddressFamilyT, AddressFamilyT::v6, ConnectionT>;
         }
     }
 }

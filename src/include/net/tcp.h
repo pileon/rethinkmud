@@ -12,10 +12,22 @@ namespace rethinkmud
 {
     namespace net
     {
+        namespace connections
+        {
+            class tcp : public ip<asio::ip::tcp>
+            {
+            public:
+                using ip::ip;
+            };
+        }
+
         namespace servers
         {
-            using tcp_v4 = ip_v4<asio::ip::tcp>;
-            using tcp_v6 = ip_v6<asio::ip::tcp>;
+            template<typename ConnectionT = connections::tcp>
+            using tcp_v4 = ip_v4<asio::ip::tcp, ConnectionT>;
+
+            template<typename ConnectionT = connections::tcp>
+            using tcp_v6 = ip_v6<asio::ip::tcp, ConnectionT>;
         }
     }
 }
