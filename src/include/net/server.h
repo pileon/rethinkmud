@@ -5,9 +5,24 @@
 #ifndef RETHINKMUD_SERVER_H
 #define RETHINKMUD_SERVER_H
 
-namespace rethinkmud::net
+namespace rethinkmud
 {
+    namespace net
+    {
+        /**
+         * \brief Abstract base class for all servers
+         */
+        class server
+        {
+        public:
+            virtual ~server() {}
 
+        protected:
+            server() {}
+
+        private:
+        };
+    }
 }
 
 #endif //RETHINKMUD_SERVER_H
