@@ -14,16 +14,8 @@ namespace rethinkmud
     {
         namespace servers
         {
-            class tcp : public ip<boost::asio::ip::tcp>
-            {
-            public:
-                explicit tcp(unsigned short port)
-                    : ip{port}
-                {}
-
-                virtual ~tcp()
-                {}
-            };
+            using tcp_v4 = ip_v4<asio::ip::tcp>;
+            using tcp_v6 = ip_v6<asio::ip::tcp>;
         }
     }
 }

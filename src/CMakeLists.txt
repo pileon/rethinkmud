@@ -19,4 +19,4 @@ target_link_libraries(rethinkmud ${CMAKE_BINARY_DIR}/rethinkdbxx/librethinkdb++.
 
 add_subdirectory(net)
 
-target_link_libraries(rethinkmud Boost::system network)
+target_link_libraries(rethinkmud network)

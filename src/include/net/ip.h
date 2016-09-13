@@ -23,23 +23,15 @@ namespace rethinkmud
                        public std::enable_shared_from_this<ip<AddressFamilyT>>
             {
             public:
-                using pointer_type = std::shared_ptr<ip>;
-                using socket_type  = typename AddressFamilyT::socket;
-
-                static pointer_type create()
+                using socket_type = typename AddressFamilyT::socket;
+                ip(socket_type socket)
+                    : socket_{std::move(socket)}
                 {
-                    return std::make_shared<ip>();
+
                 }
 
-                ip()
-                    : socket_{get_io_service()}
-                {
-                }
-
-                socket_type& socket()
-                {
-                    return socket_;
-                }
+                void start()
+                {}
 
             private:
                 socket_type socket_;
@@ -52,7 +44,7 @@ namespace rethinkmud
              * \brief Generic parent class for TCP or UDP servers
              * \tparam AddressFamilyT The TCP or UDP base class
              */
-            template<typename AddressFamilyT>
+            template<typename AddressFamilyT, AddressFamilyT (*version_func)()>
             class ip : public basic_server
             {
             public:
@@ -65,38 +57,37 @@ namespace rethinkmud
                 explicit ip(unsigned short port)
                         : basic_server{},
                           port_{port},
-                          acceptor_v4_{get_io_service(), typename AddressFamilyT::endpoint{AddressFamilyT::v4(), port_}},
-                          acceptor_v6_{get_io_service(), typename AddressFamilyT::endpoint{AddressFamilyT::v6(), port_}}
+                          acceptor_{get_io_service(), typename AddressFamilyT::endpoint{version_func(), port_}},
+                          socket_{get_io_service()}
                 {
-                    start_accept_v4();
-                    start_accept_v6();
+                    do_accept();
                 }
 
             private:
                 unsigned short port_;
 
-                typename AddressFamilyT::acceptor acceptor_v4_;
-                typename AddressFamilyT::acceptor acceptor_v6_;
+                typename AddressFamilyT::acceptor acceptor_;
+                typename AddressFamilyT::socket   socket_;
 
-                void start_accept_v4()
+                void do_accept()
                 {
-                    auto connection = connection_type::create();
-                    acceptor_v4_.async_accept(connection->socket(),
-                                              std::bind(&ip::handle_accept, this,
-                                                        boost::asio::placeholders::error));
-                }
+                    acceptor_.async_accept(socket_, [this](std::error_code ec)
+                    {
+                        if (!ec)
+                        {
+                            std::make_shared<connections::ip<AddressFamilyT>>(std::move(socket_))->start();
+                        }
 
-                void start_accept_v6()
-                {
-
-                }
-
-                void handle_accept(typename connection_type::pointer_type connection [[maybe_unused]],
-                                   const boost::system::error_code& error [[maybe_unused]])
-                {
-                    //restart_function();
+                        do_accept();
+                    });
                 }
             };
+
+            template<typename AddressFamilyT>
+            using ip_v4 = ip<AddressFamilyT, AddressFamilyT::v4>;
+
+            template<typename AddressFamilyT>
+            using ip_v6 = ip<AddressFamilyT, AddressFamilyT::v6>;
         }
     }
 }

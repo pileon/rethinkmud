@@ -11,7 +11,7 @@ using namespace rethinkmud::net;
 namespace
 {
     std::vector<std::unique_ptr<servers::basic_server>> all_servers;
-    boost::asio::io_service io_service;
+    asio::io_service io_service;
     std::thread io_service_thread;
 }
 
@@ -38,7 +38,7 @@ void rethinkmud::net::clean()
 {
 }
 
-boost::asio::io_service& rethinkmud::net::get_io_service()
+asio::io_service& rethinkmud::net::get_io_service()
 {
     return io_service;
 }
