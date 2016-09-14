@@ -140,6 +140,7 @@ namespace rethinkmud
                     typename AddressFamilyT::acceptor::reuse_address option(true);
                     acceptor_.set_option(option);
 
+                    start();
                     do_accept();
                 }
 
@@ -156,6 +157,10 @@ namespace rethinkmud
                         if (!ec)
                         {
                             std::make_shared<ConnectionT>(std::move(socket_))->run();
+                        }
+                        else
+                        {
+                            // TODO: Check what kind of error this is, if we can continue or need to end
                         }
 
                         do_accept();

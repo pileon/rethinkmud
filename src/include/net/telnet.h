@@ -23,6 +23,9 @@ namespace rethinkmud
                     std::clog << "Starting telnet connection\n";
                     tcp::start();
                 }
+
+            protected:
+                void input(std::vector<char> data) override;
             };
         }
 

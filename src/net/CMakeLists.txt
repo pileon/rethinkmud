@@ -1,4 +1,4 @@
-set(SOURCE_FILES ../include/net/server.h network.cpp ../include/net/network.h ../include/net/tcp.h ../include/net/telnet.h ../include/net/ip.h ../include/net/connection.h)
+set(SOURCE_FILES ../include/net/server.h network.cpp ../include/net/network.h ../include/net/tcp.h ../include/net/telnet.h ../include/net/ip.h ../include/net/connection.h telnet.cpp)
 add_library(network STATIC ${SOURCE_FILES})
 target_include_directories(network
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
