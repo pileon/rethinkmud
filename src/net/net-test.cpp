@@ -1,6 +1,5 @@
-//
-// Created by arrow on 9/13/16.
-//
+// This simple program initializes the network components, and then waits
+// for the user to interrupt the program with CTRL-C
 
 #include <iostream>
 #include "net/network.h"
@@ -24,7 +23,7 @@ int main()
 
     while (!exit_program)
     {
-
+        pause();
     }
 
     n::stop();

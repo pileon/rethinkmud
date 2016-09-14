@@ -2,8 +2,6 @@
 #include "net/server.h"
 #include "net/telnet.h"
 
-#include <memory>
-#include <vector>
 #include <thread>
 
 using namespace rethinkmud::net;
