@@ -17,6 +17,12 @@ namespace rethinkmud
             {
             public:
                 using tcp::tcp;
+
+                void start() override
+                {
+                    std::clog << "Starting telnet connection\n";
+                    tcp::start();
+                }
             };
         }
 

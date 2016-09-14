@@ -12,6 +12,7 @@
 #include <memory>
 #include <functional>
 #include <iostream>
+#include <vector>
 
 namespace rethinkmud
 {
@@ -19,6 +20,11 @@ namespace rethinkmud
     {
         namespace connections
         {
+            /**
+             * \brief Base class for IP-based connections
+             *
+             * \tparam AddressFamilyT The ASIO address family structure type
+             */
             template<typename AddressFamilyT>
             class ip : public basic_connection,
             public std::enable_shared_from_this<ip<AddressFamilyT>>
@@ -34,10 +40,49 @@ namespace rethinkmud
 
                 }
 
-                void start()
+                /**
+                 * \brief Start the asynchronous receive process
+                 */
+                void run()
+                {
+                    start();
+                    do_read();
+                }
+
+            protected:
+                /**
+                 * \brief Return the underlying socket
+                 *
+                 * \return The socket
+                 */
+                socket_type socket() const
+                {
+                    return socket_;
+                }
+
+                /**
+                 * \brief Connection has started up
+                 */
+                void start() override
                 {
                     std::clog << "New connection from " << socket_.remote_endpoint() << '\n';
-                    do_read();
+                }
+
+                /**
+                 * \brief The connection is ending
+                 *
+                 * \param ec Reason for ending the connection
+                 */
+                void end(std::error_code const& ec) const override
+                {
+                    if (ec == asio::error::eof)
+                    {
+                        std::clog << "Connection to " << socket_.remote_endpoint() << " Closed\n";
+                    }
+                    else
+                    {
+                        std::clog << "Error: " << ec << " (" << ec.message() << ")\n";
+                    }
                 }
 
             private:
@@ -55,20 +100,12 @@ namespace rethinkmud
                             {
                                 if (!ec)
                                 {
-                                    std::clog << "Received " << size << " bytes: \"" << std::string(data_.data(), size) << "\"\n";
-                                    // TODO: Call a protected member function to process the received data
+                                    this->input(std::vector<char>(data_.data(), data_.data() + size));
                                     do_read();
                                 }
                                 else
                                 {
-                                    if (ec == asio::error::eof)
-                                    {
-                                        std::clog << "Connection to " << socket_.remote_endpoint() << " Closed\n";
-                                    }
-                                    else
-                                    {
-                                        std::clog << "Error: " << ec << " (" << ec.message() << ")\n";
-                                    }
+                                    end(ec);
                                 }
                             });
                 }
@@ -79,7 +116,10 @@ namespace rethinkmud
         {
             /**
              * \brief Generic parent class for TCP or UDP servers
+             *
              * \tparam AddressFamilyT The TCP or UDP base class
+             * \tparam version_func Function to get an IP version
+             * \tparam ConnectionT Type of the connection object to create
              */
             template<typename AddressFamilyT, AddressFamilyT (*version_func)(), typename ConnectionT>
             class ip : public basic_server
@@ -115,7 +155,7 @@ namespace rethinkmud
                     {
                         if (!ec)
                         {
-                            std::make_shared<ConnectionT>(std::move(socket_))->start();
+                            std::make_shared<ConnectionT>(std::move(socket_))->run();
                         }
 
                         do_accept();
