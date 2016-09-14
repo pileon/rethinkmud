@@ -58,6 +58,8 @@ if(HAVE_FLAG_STDLIB_LIBCXX)
     message(STATUS "Looking for libc++ - found")
 
     # Check for the ABI library, and if we can build with `-stdlib=libc++` without linking with `-lc++abi`
+    # TODO: Need better check for this, it seems I still need to build with -lc++abi even though this test says it's not needed
+    # TODO: Need to check the run-time output of the program
     message(STATUS "Looking for libc++abi")
     find_library(HAVE_LIBCXXABI c++abi)
     if(NOT HAVE_LIBCXXABI)

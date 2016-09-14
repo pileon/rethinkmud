@@ -3,7 +3,7 @@ configure_file(${CMAKE_SOURCE_DIR}/src/include/autoconf.h.in ${CMAKE_SOURCE_DIR}
 set(SOURCE_FILES main.cpp)
 add_executable(rethinkmud ${SOURCE_FILES})
 target_include_directories(rethinkmud
-        PRIVATE include)
+        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 check_cxx_compiler_flag(-Wno-vla-extension HAVE_FLAG_WNO_VLA_EXTENSION)
 if(HAVE_FLAG_WNO_VLA_EXTENSION)
@@ -13,6 +13,10 @@ endif()
 add_dependencies(rethinkmud librethinkdbxx)
 target_link_libraries(rethinkmud ${CMAKE_BINARY_DIR}/rethinkdbxx/librethinkdb++.a)
 
-if(NOT STDLIBCXX_WITHOUT_LIBCXXABI)
+#if(HAVE_LIBCXXABI AND NOT STDLIBCXX_WITHOUT_LIBCXXABI)
     target_link_libraries(rethinkmud c++abi)
-endif()
+#endif()
+
+add_subdirectory(net)
+
+target_link_libraries(rethinkmud network)

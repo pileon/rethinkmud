@@ -5,7 +5,10 @@ project(rethinkmud
 
 find_package(Threads)
 
+include(CheckIncludeFileCXX)
+
 include(cmake/BuildFlags.cmake)
+include(cmake/ASIO.cmake)
 
 add_subdirectory(rethinkdbxx)
 add_subdirectory(src)
