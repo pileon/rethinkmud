@@ -20,15 +20,15 @@ namespace rethinkmud
         namespace connections
         {
             template<typename AddressFamilyT>
-            class ip : public std::enable_shared_from_this<ip<AddressFamilyT>>,
-                       public basic_connection
+            class ip : public basic_connection,
+            public std::enable_shared_from_this<ip<AddressFamilyT>>
             {
             public:
                 using socket_type = typename AddressFamilyT::socket;
 
                 ip(socket_type socket)
-                    : std::enable_shared_from_this<ip>{},
-                      basic_connection{},
+                    : basic_connection{},
+                      std::enable_shared_from_this<ip>{},
                       socket_{std::move(socket)}
                 {
 
@@ -56,6 +56,7 @@ namespace rethinkmud
                                 if (!ec)
                                 {
                                     std::clog << "Received " << size << " bytes: \"" << std::string(data_.data(), size) << "\"\n";
+                                    // TODO: Call a protected member function to process the received data
                                     do_read();
                                 }
                                 else
