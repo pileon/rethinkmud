@@ -9,6 +9,7 @@ include(CheckIncludeFileCXX)
 
 include(cmake/BuildFlags.cmake)
 include(cmake/ASIO.cmake)
+include(cmake/ICU.cmake)
 
 add_subdirectory(rethinkdbxx)
 add_subdirectory(src)
