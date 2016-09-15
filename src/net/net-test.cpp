@@ -13,14 +13,6 @@ namespace
 
 int main()
 {
-    char x = 0xff;
-    std::cout << "static_cast<int>(static_cast<unsigned char>(x)) = " << static_cast<int>(static_cast<unsigned char>(x)) << '\n';
-
-    std::cout << "1 '\u2126'\n";
-    std::cout << "1 '\u03a9'\n";
-    std::cout << "2 '\u0061\u0300'\n";
-    std::cout << "2 '\u00e0'\n";
-
     struct sigaction sa = {};
     sa.sa_handler = [](int) { std::cout << "SIGINT\n"; exit_program = true; };
     sa.sa_flags   = SA_RESETHAND | SA_RESTART;
