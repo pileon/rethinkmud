@@ -17,7 +17,14 @@ namespace rethinkmud
             class tcp : public ip<asio::ip::tcp>
             {
             public:
-                using ip::ip;
+                using socket_type = typename ip<asio::ip::tcp>::socket_type;
+
+                tcp(socket_type socket)
+                    : ip<asio::ip::tcp>{std::move(socket)}
+                {}
+
+                virtual ~tcp()
+                {}
             };
         }
 

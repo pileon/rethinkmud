@@ -15,17 +15,30 @@ namespace rethinkmud
         {
             class telnet : public tcp
             {
-            public:
-                using tcp::tcp;
+                struct telnet_info;
 
-                void start() override
-                {
-                    std::clog << "Starting telnet connection\n";
-                    tcp::start();
-                }
+            public:
+                using socket_type = tcp::socket_type;
+
+                telnet(socket_type socket)
+                    : tcp{std::move(socket)}
+                {}
+
+                ~telnet()
+                {}
+
+                void start() override;
 
             protected:
                 void input(std::vector<char> data) override;
+
+            private:
+                struct telnet_info_deleter
+                {
+                    void operator()(telnet_info*);
+                };
+
+                std::unique_ptr<telnet_info, telnet_info_deleter> info_;
             };
         }
 

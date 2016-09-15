@@ -32,14 +32,6 @@ namespace rethinkmud
             public:
                 using socket_type = typename AddressFamilyT::socket;
 
-                ip(socket_type socket)
-                    : basic_connection{},
-                      std::enable_shared_from_this<ip>{},
-                      socket_{std::move(socket)}
-                {
-
-                }
-
                 /**
                  * \brief Start the asynchronous receive process
                  */
@@ -50,6 +42,14 @@ namespace rethinkmud
                 }
 
             protected:
+                ip(socket_type socket)
+                        : basic_connection{},
+                          std::enable_shared_from_this<ip>{},
+                          socket_{std::move(socket)}
+                {
+
+                }
+
                 /**
                  * \brief Return the underlying socket
                  *
