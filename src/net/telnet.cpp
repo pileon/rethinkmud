@@ -2,9 +2,18 @@
 
 #include <arpa/telnet.h>
 
+static constexpr std::size_t telnet_option_count = 256;
+
 struct rethinkmud::net::connections::telnet::telnet_info
 {
-    int x;
+    // What we do, and don't do
+    bool options[telnet_option_count] = { false };
+
+    // Options we have sent and are waiting for reply on
+    bool sent_will[telnet_option_count];
+    bool sent_wont[telnet_option_count];
+    bool sent_do[telnet_option_count];
+    bool sent_dont[telnet_option_count];
 };
 
 void rethinkmud::net::connections::telnet::telnet_info_deleter::operator()(telnet_info* info)
@@ -22,11 +31,21 @@ void rethinkmud::net::connections::telnet::start()
 
 void rethinkmud::net::connections::telnet::input(std::vector<char> data)
 {
-    // TODO: Parse the input for telnet command sequence
-    // TODO: Extract (remove) the command sequences as we process the input
-    // TODO: For now we assume that all sequences are complete
+    // Parse the input for telnet command sequence
+    // Copy the non-telnet data to a new container
+    // For now we assume that all sequences are complete
 
-    // TODO: After parsing and removing the telnet sequences,
-    // TODO: the rest of the data is passed as a string to the
-    // TODO: command interpreter
+    std::string input;
+
+    for (auto i = std::begin(data); i != std::end(data); ++i)
+    {
+        if (static_cast<unsigned char>(*i) == IAC)
+        {
+            // TODO: Handle the telnet stuff
+        }
+        else
+            input += *i;
+    }
+
+    // TODO: Pass the input to the command interpreter
 }
