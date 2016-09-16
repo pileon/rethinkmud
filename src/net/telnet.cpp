@@ -47,7 +47,12 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
             input += *i;
     }
 
-    write("You wrote: " + input);
+    if (input == "echo off\r\n")
+        echo_off();
+    else if (input == "echo on\r\n")
+        echo_on();
+    else
+        write("You wrote: " + input);
 
     // TODO: Split the input into lines, and add each line into a queue
 }
@@ -100,12 +105,12 @@ void rethinkmud::net::connections::telnet::send_wont(uint8_t option)
 
 void rethinkmud::net::connections::telnet::echo_on()
 {
-    send_wont(ECHO);
-    send_do(ECHO);
+    send_wont(TELOPT_ECHO);
+    send_do(TELOPT_ECHO);
 }
 
 void rethinkmud::net::connections::telnet::echo_off()
 {
-    send_will(ECHO);
-    send_dont(ECHO);
+    send_will(TELOPT_ECHO);
+    send_dont(TELOPT_ECHO);
 }
