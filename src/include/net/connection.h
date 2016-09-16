@@ -25,6 +25,7 @@ namespace rethinkmud
 
                 // TODO: Functions for writing data to the connection
 
+
             protected:
                 basic_connection()
                 {}
