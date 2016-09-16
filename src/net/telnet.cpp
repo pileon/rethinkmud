@@ -47,7 +47,9 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
             input += *i;
     }
 
-    // TODO: Pass the input to the command interpreter
+    write("You wrote: " + input);
+
+    // TODO: Split the input into lines, and add each line into a queue
 }
 
 void rethinkmud::net::connections::telnet::send_option(uint8_t command, uint8_t option)
@@ -57,8 +59,7 @@ void rethinkmud::net::connections::telnet::send_option(uint8_t command, uint8_t 
         command,
         option
     };
-
-    // TODO: Send the data
+    write(data, sizeof(data));
 }
 
 void rethinkmud::net::connections::telnet::send_do(uint8_t option)

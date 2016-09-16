@@ -23,8 +23,15 @@ namespace rethinkmud
                 virtual ~basic_connection()
                 {}
 
-                // TODO: Functions for writing data to the connection
-
+                virtual void write(std::string const&string)
+                {
+                    write(std::vector<char>(std::begin(string), std::end(string)));
+                }
+                virtual void write(uint8_t const* data, size_t const length)
+                {
+                    write(std::vector<char>(data, data + length));
+                }
+                virtual void write(std::vector<char> const&) = 0;
 
             protected:
                 basic_connection()

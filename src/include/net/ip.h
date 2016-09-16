@@ -41,6 +41,13 @@ namespace rethinkmud
                     do_read();
                 }
 
+                using basic_connection::write;
+
+                void write(std::vector<char> const& data) override
+                {
+                    socket_.send(asio::buffer(data));
+                }
+
             protected:
                 ip(socket_type socket)
                         : basic_connection{},
