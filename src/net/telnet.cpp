@@ -39,22 +39,49 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
 
     for (auto i = std::begin(data); i != std::end(data); ++i)
     {
-        if (static_cast<unsigned char>(*i) == IAC)
+        if (static_cast<uint8_t>(*i) == IAC)
         {
-            // TODO: Handle the telnet stuff
+            uint8_t command = static_cast<uint8_t>(*(i + 1));
+
+            // TODO: Handle all this
+            switch (command)
+            {
+                case DO:
+                case DONT:
+                case WILL:
+                case WONT:
+                    break;
+
+                case SB:
+                    break;
+
+                case AYT:
+                    break;
+
+                default:
+                    break;
+            }
         }
         else
             input += *i;
     }
 
-    if (input == "echo off\r\n")
-        echo_off();
-    else if (input == "echo on\r\n")
-        echo_on();
-    else
-        write("You wrote: " + input);
+    std::istringstream iss{input};
+    std::string line;
 
-    // TODO: Split the input into lines, and add each line into a queue
+    while (std::getline(iss, line))
+    {
+        if (input == "echo off")
+            echo_off();
+        else if (input == "echo on")
+            echo_on();
+        else
+            write("You wrote: " + line + "\r\n");
+
+        // TODO: Add input line to queue
+    }
+
+    // TODO: If input left, then extract and save for next call
 }
 
 void rethinkmud::net::connections::telnet::send_option(uint8_t command, uint8_t option)
