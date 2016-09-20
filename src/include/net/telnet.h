@@ -43,6 +43,8 @@ namespace rethinkmud
 
                 std::unique_ptr<telnet_info, telnet_info_deleter> info_;
 
+                std::string buffer_;  // Buffer from last input operation
+
                 void send_option(uint8_t command, uint8_t option);
                 void send_do(uint8_t option);
                 void send_dont(uint8_t option);

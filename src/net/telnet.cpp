@@ -58,7 +58,8 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
     // Copy the non-telnet data to a new container
     // For now we assume that all sequences are complete
 
-    std::string input;
+    std::string input = buffer_;
+    buffer_ = "";  // Clear the saved buffer from last call
 
     for (auto i = std::begin(data); i != std::end(data); ++i)
     {
@@ -98,20 +99,26 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
 
     while (std::getline(iss, line))
     {
-        // Trim leading and trailing white-space
-        line = trim(line);
-
-        if (line == "echo off")
-            echo_off();
-        else if (line == "echo on")
-            echo_on();
+        if (iss.eof())
+        {
+            // Not a complete line at the end of the buffer, save the data for the next call to this function
+            buffer_ = line;
+        }
         else
-            write("You wrote: " + line + "\r\n");
+        {
+            // Trim leading and trailing white-space
+            line = trim(line);
 
-        // TODO: Add input line to queue
+            if (line == "echo off")
+                echo_off();
+            else if (line == "echo on")
+                echo_on();
+            else
+                write("You wrote: " + line + "\r\n");
+
+            // TODO: Add input line to queue
+        }
     }
-
-    // TODO: If input left, then extract and save for next call
 }
 
 void rethinkmud::net::connections::telnet::send_option(uint8_t command, uint8_t option)
