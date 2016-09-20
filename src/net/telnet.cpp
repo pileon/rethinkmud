@@ -58,8 +58,13 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
     // Copy the non-telnet data to a new container
     // For now we assume that all sequences are complete
 
-    std::string input = buffer_;
-    buffer_ = "";  // Clear the saved buffer from last call
+    std::string input;
+
+    if (!buffer_.empty())
+    {
+        input = buffer_;
+        buffer_ = "";  // Clear the saved buffer from last call
+    }
 
     for (auto i = std::begin(data); i != std::end(data); ++i)
     {
