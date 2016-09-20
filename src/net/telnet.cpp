@@ -2,6 +2,29 @@
 
 #include <arpa/telnet.h>
 
+namespace
+{
+    std::string trim(std::string const& str)
+    {
+        // Find the first non-whitespace character
+        auto first = std::find_if(std::begin(str), std::end(str), [](char const& c)
+        {
+            return !std::isspace(c);
+        });
+
+        // Find the last non-whitespace character
+        auto last = std::find_if(std::rbegin(str), std::rend(str), [](char const& c)
+        {
+            return !std::isspace(c);
+        });
+
+        size_t first_pos = first != std::end(str) ? first - std::begin(str) : 0;
+        size_t length = last != std::rend(str) ? (std::rend(str) - last) - first_pos : str.length();
+
+        return str.substr(first_pos, length);
+    }
+}
+
 static constexpr std::size_t telnet_option_count = 256;
 
 struct rethinkmud::net::connections::telnet::telnet_info
@@ -71,9 +94,12 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
 
     while (std::getline(iss, line))
     {
-        if (input == "echo off")
+        // Trim leading and trailing white-space
+        line = trim(line);
+
+        if (line == "echo off")
             echo_off();
-        else if (input == "echo on")
+        else if (line == "echo on")
             echo_on();
         else
             write("You wrote: " + line + "\r\n");
