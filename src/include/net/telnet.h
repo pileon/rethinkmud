@@ -48,6 +48,8 @@ namespace rethinkmud
                 void send_dont(uint8_t option);
                 void send_will(uint8_t option);
                 void send_wont(uint8_t option);
+
+                void handle_option(uint8_t command, uint8_t option);
             };
         }
 

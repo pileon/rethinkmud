@@ -64,7 +64,7 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
     {
         if (static_cast<uint8_t>(*i) == IAC)
         {
-            uint8_t command = static_cast<uint8_t>(*(i + 1));
+            uint8_t command = static_cast<uint8_t>(*++i);
 
             // TODO: Handle all this
             switch (command)
@@ -73,6 +73,7 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
                 case DONT:
                 case WILL:
                 case WONT:
+                    handle_option(command, *++i);
                     break;
 
                 case SB:
@@ -88,6 +89,9 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
         else
             input += *i;
     }
+
+    if (input.empty())
+        return;
 
     std::istringstream iss{input};
     std::string line;
@@ -166,4 +170,62 @@ void rethinkmud::net::connections::telnet::echo_off()
 {
     send_will(TELOPT_ECHO);
     send_dont(TELOPT_ECHO);
+}
+
+void rethinkmud::net::connections::telnet::handle_option(uint8_t command, uint8_t option)
+{
+    // TODO: Handle all this
+    switch (command)
+    {
+        case DO:
+            if (info_->sent_will[option])
+            {
+            }
+            else if (info_->sent_wont[option])
+            {
+            }
+            else
+            {
+                send_wont(option);
+            }
+            break;
+
+        case DONT:
+            if (info_->sent_will[option])
+            {
+            }
+            else if (info_->sent_wont[option])
+            {
+            }
+            else
+            {
+                send_wont(option);
+            }
+            break;
+
+        case WILL:
+            if (info_->sent_do[option])
+            {
+            }
+            else if (info_->sent_dont[option])
+            {
+            }
+            else
+            {
+                send_dont(option);
+            }
+            break;
+        case WONT:
+            if (info_->sent_do[option])
+            {
+            }
+            else if (info_->sent_dont[option])
+            {
+            }
+            else
+            {
+                send_dont(option);
+            }
+            break;
+    }
 }
