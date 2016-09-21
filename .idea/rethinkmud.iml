@@ -29,6 +29,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/cmake/internal_utils.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/ICU.cmake" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cmake/Boost.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/BuildFlags.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/ASIO.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/BuildFlags-clang-gcc.cmake" isTestSource="false" />
