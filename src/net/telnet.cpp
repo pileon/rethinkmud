@@ -99,8 +99,17 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
                     close();
                     return;
 
+                case EC:
+                    // Remove last character from input
+                    input.erase(std::end(input) - 1);
+                    break;
+
+                case EL:
+                    // Remove last "line" from input
+                    erase_line(input);
+                    break;
+
                     // TODO: AO: Clear the output queue?
-                    // TODO: EC and EL?
 
                 default:
                     if (TELCMD_OK(command))
@@ -288,4 +297,34 @@ std::vector<char>::iterator rethinkmud::net::connections::telnet::skip_sb(std::v
     }
 
     return i;
+}
+
+void rethinkmud::net::connections::telnet::erase_line(std::string& input)
+{
+    std::string::const_reverse_iterator i;
+    for (i = std::crbegin(input); i != std::crend(input); ++i)
+    {
+        // Check for \r\n
+        if (*i == '\n' && *(i + 1) != std::crend(input) && *(i + 1) == '\r')
+        {
+            break;
+        }
+
+        // For safety, check for \n\r too
+        if (*i == '\r' && *(i + 1) != std::crend(input) && *(i + 1) == '\n')
+        {
+            break;
+        }
+    }
+
+    if (i == std::crend(input))
+    {
+        // No newline found, erase all
+        input.erase();
+    }
+    else
+    {
+        // Remove up until last newline
+        input = input.substr(0, std::crend(input) - i);
+    }
 }

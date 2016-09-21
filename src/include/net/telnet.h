@@ -54,6 +54,7 @@ namespace rethinkmud
                 void handle_option(uint8_t command, uint8_t option);
                 std::vector<char>::iterator handle_sb(std::vector<char>::iterator);
                 std::vector<char>::iterator skip_sb(std::vector<char>::iterator);
+                void erase_line(std::string& input);
             };
         }
 
