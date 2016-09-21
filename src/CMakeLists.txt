@@ -1,6 +1,6 @@
 configure_file(${CMAKE_SOURCE_DIR}/src/include/autoconf.h.in ${CMAKE_SOURCE_DIR}/src/include/autoconf.h)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp config.cpp config.h)
 add_executable(rethinkmud ${SOURCE_FILES})
 target_include_directories(rethinkmud
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)

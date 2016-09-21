@@ -1,12 +1,17 @@
 #include "autoconf.h"
-#include <iostream>
+#include "config.h"
 #include "../rethinkdbxx/rethinkdb.h"
+
+#include <iostream>
 #include <experimental/filesystem>
 
 namespace R = RethinkDB;
 
-int main()
+int main(int argc, char** argv)
 {
+    using namespace rethinkmud;
+    config::load(argc, argv);
+
     std::cout << "RethinkMUD version " << RETHINKMUD_VERSION << '\n';
 
     try
