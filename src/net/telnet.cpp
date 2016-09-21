@@ -10,19 +10,19 @@ namespace
     std::string trim(std::string const& str)
     {
         // Find the first non-whitespace character
-        auto first = std::find_if(std::begin(str), std::end(str), [](char const& c)
+        auto first = std::find_if(std::cbegin(str), std::cend(str), [](char const& c)
         {
             return !std::isspace(c);
         });
 
         // Find the last non-whitespace character
-        auto last = std::find_if(std::rbegin(str), std::rend(str), [](char const& c)
+        auto last = std::find_if(std::crbegin(str), std::crend(str), [](char const& c)
         {
             return !std::isspace(c);
         });
 
-        size_t first_pos = first != std::end(str) ? first - std::begin(str) : 0;
-        size_t length = last != std::rend(str) ? (std::rend(str) - last) - first_pos : str.length();
+        size_t first_pos = first != std::cend(str) ? first - std::cbegin(str) : 0;
+        size_t length = last != std::crend(str) ? (std::crend(str) - last) - first_pos : str.length();
 
         return str.substr(first_pos, length);
     }
@@ -305,13 +305,13 @@ void rethinkmud::net::connections::telnet::erase_line(std::string& input)
     for (i = std::crbegin(input); i != std::crend(input); ++i)
     {
         // Check for \r\n
-        if (*i == '\n' && *(i + 1) != std::crend(input) && *(i + 1) == '\r')
+        if (*i == '\n' && (i + 1) != std::crend(input) && *(i + 1) == '\r')
         {
             break;
         }
 
         // For safety, check for \n\r too
-        if (*i == '\r' && *(i + 1) != std::crend(input) && *(i + 1) == '\n')
+        if (*i == '\r' && (i + 1) != std::crend(input) && *(i + 1) == '\n')
         {
             break;
         }
