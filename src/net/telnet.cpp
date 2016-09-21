@@ -86,7 +86,7 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
                     break;
 
                 case SB:
-                    // TODO: Handle this!
+                    i = handle_sb(i);
                     break;
 
                 case AYT:
@@ -99,8 +99,8 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
                     close();
                     return;
 
-                    // TODO: AO: Clear the output queue
-                    // TODO: EC and EL
+                    // TODO: AO: Clear the output queue?
+                    // TODO: EC and EL?
 
                 default:
                     if (TELCMD_OK(command))
@@ -262,4 +262,30 @@ void rethinkmud::net::connections::telnet::handle_option(uint8_t command, uint8_
         default:
             break;
     }
+}
+
+std::vector<char>::iterator rethinkmud::net::connections::telnet::handle_sb(std::vector<char>::iterator i)
+{
+    if (TELOPT_OK(*i))
+    {
+        std::clog << "Unhandled telnet SB " << TELOPT(*i) << '\n';
+    }
+    else
+    {
+        std::clog << "Unknown SB " << *i << '\n';
+        return skip_sb(i);
+    }
+
+    // TODO: Handle some SB?
+    return skip_sb(i);
+}
+
+std::vector<char>::iterator rethinkmud::net::connections::telnet::skip_sb(std::vector<char>::iterator i)
+{
+    while (static_cast<uint8_t>(*i) != IAC && static_cast<uint8_t>(*(i + 1)) != SE)
+    {
+        ++i;
+    }
+
+    return i;
 }
