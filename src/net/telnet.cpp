@@ -296,7 +296,7 @@ std::vector<char>::iterator rethinkmud::net::connections::telnet::skip_sb(std::v
         ++i;
     }
 
-    return i;
+    return i + 1;
 }
 
 void rethinkmud::net::connections::telnet::erase_line(std::string& input)
