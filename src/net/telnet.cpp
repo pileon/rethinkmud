@@ -1,7 +1,9 @@
 #include "net/telnet.h"
+#include "autoconf.h"
 
+#define TELCMDS  // To get the array of Telnet command names
+#define TELOPTS  // To get the array of Telnet option names
 #include <arpa/telnet.h>
-#include <autoconf.h>
 
 namespace
 {
@@ -97,7 +99,14 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
                     close();
                     return;
 
+                    // TODO: AO: Clear the output queue
+                    // TODO: EC and EL
+
                 default:
+                    if (TELCMD_OK(command))
+                        std::clog << "Unhandled telnet command " << TELCMD(command) << '\n';
+                    else
+                        std::clog << "Unknown telnet command " << static_cast<unsigned>(command) << '\n';
                     break;
             }
         }
