@@ -23,7 +23,7 @@ namespace rethinkmud
                 virtual ~basic_connection()
                 {}
 
-                virtual void write(std::string const&string)
+                virtual void write(std::string const& string)
                 {
                     write(std::vector<char>(std::begin(string), std::end(string)));
                 }

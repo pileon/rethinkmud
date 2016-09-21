@@ -1,6 +1,7 @@
 #include "net/telnet.h"
 
 #include <arpa/telnet.h>
+#include <autoconf.h>
 
 namespace
 {
@@ -83,9 +84,12 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
                     break;
 
                 case SB:
+                    // TODO: Handle this!
                     break;
 
                 case AYT:
+                    // TODO: Use the configured MUD name instead
+                    write("RethinkMUD version " RETHINKMUD_VERSION " is alive and well.\r\n");
                     break;
 
                 default:
@@ -121,7 +125,7 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
             else
                 write("You wrote: " + line + "\r\n");
 
-            // TODO: Add input line to queue
+            // TODO: Add input line to queue for command interpreter
         }
     }
 }
@@ -227,6 +231,7 @@ void rethinkmud::net::connections::telnet::handle_option(uint8_t command, uint8_
                 send_dont(option);
             }
             break;
+
         case WONT:
             if (info_->sent_do[option])
             {
@@ -238,6 +243,9 @@ void rethinkmud::net::connections::telnet::handle_option(uint8_t command, uint8_
             {
                 send_dont(option);
             }
+            break;
+
+        default:
             break;
     }
 }
