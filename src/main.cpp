@@ -1,7 +1,7 @@
 #include "autoconf.h"
 #include "config.h"
 
-#include "../rethinkdbxx/rethinkdb.h"
+#include "rethinkdbxx.h"
 
 #include <iostream>
 #include <experimental/filesystem>

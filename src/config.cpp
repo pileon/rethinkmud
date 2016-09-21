@@ -7,7 +7,7 @@
 
 #include <boost/program_options.hpp>
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 
 namespace po = boost::program_options;
 
@@ -28,13 +28,13 @@ namespace rethinkmud
             if (vm.count("help"))
             {
                 std::cout << general << '\n';
-                exit(0);
+                std::exit(0);
             }
 
             if (vm.count("version"))
             {
                 std::cout << "RethinkMUD version " << RETHINKMUD_VERSION << '\n';
-                exit(0);
+                std::exit(0);
             }
         }
     }
