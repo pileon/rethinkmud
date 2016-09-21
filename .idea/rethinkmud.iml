@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/net-test.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/network.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/net/telnet.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/CMakeLists.txt" isTestSource="false" />

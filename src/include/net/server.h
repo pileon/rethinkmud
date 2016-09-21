@@ -24,6 +24,10 @@ namespace rethinkmud
                 basic_server()
                 {}
 
+                virtual void start()
+                {
+                }
+
             private:
             };
         }
