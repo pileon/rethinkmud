@@ -9,7 +9,7 @@ namespace rethinkmud
 {
     namespace config
     {
-        void load(int argc, char** argv);
+        void load(int argc, char* argv[]);
     }
 }
 

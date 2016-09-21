@@ -1,5 +1,6 @@
 #include "autoconf.h"
 #include "config.h"
+
 #include "../rethinkdbxx/rethinkdb.h"
 
 #include <iostream>

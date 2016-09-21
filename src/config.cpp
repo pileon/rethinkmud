@@ -7,6 +7,7 @@
 
 #include <boost/program_options.hpp>
 #include <iostream>
+#include <stdlib.h>
 
 namespace po = boost::program_options;
 
@@ -14,7 +15,7 @@ namespace rethinkmud
 {
     namespace config
     {
-        void load(int argc, char** argv)
+        void load(int argc, char* argv[])
         {
             po::options_description general{"General options"};
             general.add_options()
