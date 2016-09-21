@@ -92,6 +92,11 @@ void rethinkmud::net::connections::telnet::input(std::vector<char> data)
                     write("RethinkMUD version " RETHINKMUD_VERSION " is alive and well.\r\n");
                     break;
 
+                case IP:
+                    std::clog << "Closing connection to " << socket().remote_endpoint() << " (Telnet IP)\n";
+                    close();
+                    return;
+
                 default:
                     break;
             }

@@ -33,6 +33,8 @@ namespace rethinkmud
                 }
                 virtual void write(std::vector<char> const&) = 0;
 
+                virtual void close() = 0;
+
             protected:
                 basic_connection()
                 {}

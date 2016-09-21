@@ -48,6 +48,11 @@ namespace rethinkmud
                     socket_.send(asio::buffer(data));
                 }
 
+                void close() override
+                {
+                    socket_.close();
+                }
+
             protected:
                 ip(socket_type socket)
                         : basic_connection{},
@@ -62,7 +67,7 @@ namespace rethinkmud
                  *
                  * \return The socket
                  */
-                socket_type socket() const
+                socket_type const& socket() const
                 {
                     return socket_;
                 }
@@ -86,7 +91,7 @@ namespace rethinkmud
                     {
                         std::clog << "Connection to " << socket_.remote_endpoint() << " Closed\n";
                     }
-                    else
+                    else if (socket_.is_open())
                     {
                         std::clog << "Error: " << ec << " (" << ec.message() << ")\n";
                     }
