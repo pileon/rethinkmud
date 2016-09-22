@@ -1,13 +1,21 @@
 #include "autoconf.h"
+#include "config.h"
+
+#include "rethinkdbxx.h"
+
 #include <iostream>
-#include "../rethinkdbxx/rethinkdb.h"
 #include <experimental/filesystem>
 
 namespace R = RethinkDB;
 
-int main()
+int main(int argc, char** argv)
 {
-    std::cout << "RethinkMUD version " << RETHINKMUD_VERSION << '\n';
+    using namespace rethinkmud;
+    config::load(argc, argv);
+
+    std::cout << config::get<std::string>("mud.name") << " version " << config::get<std::string>("mud.version") << " is starting up\n";
+    std::cout << "Based on RethinkMUD version " << RETHINKMUD_VERSION << '\n';
+    std::cout << "Administrated by " << config::get<std::string>("mud.admin.name") << " <" << config::get<std::string>("mud.admin.email") << ">\n";
 
     try
     {

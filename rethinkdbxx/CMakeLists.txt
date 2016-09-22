@@ -1,4 +1,4 @@
-set(librethinkdbxx_CXX_CLAGS ${COMPILER_OPTIONS} -Ibuild/gen -Wno-vla-extension)
+set(librethinkdbxx_CXX_CLAGS -Ibuild/gen)
 if(CMAKE_DEBUG_BUILD)
     set(librethinkdbxx_CXX_CLAGS ${librethinkdbxx_CXX_CLAGS} ${CMAKE_CXX_FLAGS_DEBUG})
 endif()
