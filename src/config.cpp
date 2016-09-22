@@ -1,7 +1,3 @@
-//
-// Created by arrow on 9/21/16.
-//
-
 #include "autoconf.h"
 #include "config.h"
 
@@ -24,8 +20,12 @@ namespace rethinkmud
             constexpr unsigned short port = 4000;
         }
 
+        /////////////////////////////////////////////////////////////
+
         namespace
         {
+            po::variables_map config_vm;
+
             auto get_command_line_options(std::string const &argv0)
             {
                 std::string default_config_file = argv0 + ".cfg";
@@ -64,11 +64,9 @@ namespace rethinkmud
             options.add(common);
             config.add(common);
 
-            po::variables_map vm;
-
             try
             {
-                po::store(po::parse_command_line(argc, argv, options), vm, true);
+                po::store(po::parse_command_line(argc, argv, options), config_vm, true);
             }
             catch (po::error& e)
             {
@@ -77,28 +75,26 @@ namespace rethinkmud
                 std::exit(1);
             }
 
-            po::notify(vm);
+            po::notify(config_vm);
 
-            if (vm.count("help"))
+            if (config_vm.count("help"))
             {
                 std::cout << options << '\n';
                 std::exit(0);
             }
 
-            if (vm.count("version"))
+            if (config_vm.count("version"))
             {
                 std::cout << "RethinkMUD version " << RETHINKMUD_VERSION << '\n';
                 std::exit(0);
             }
 
-            std::cout << "Configuration file = " << vm["config"].as<std::string>() << '\n';
-
-            std::ifstream config_file{vm["config"].as<std::string>()};
+            std::ifstream config_file{config_vm["config"].as<std::string>()};
             if (config_file)
             {
                 try
                 {
-                    po::store(po::parse_config_file(config_file, config), vm, true);
+                    po::store(po::parse_config_file(config_file, config), config_vm, true);
                 }
                 catch (po::error& e)
                 {
@@ -107,10 +103,14 @@ namespace rethinkmud
                 }
             }
 
-            std::cout << "Main port number = " << vm["port"].as<int>() << '\n';
-
             // TODO: Environment variables?
 
+        }
+
+        template<typename T>
+        T get(std::string name)
+        {
+            return config_vm[name].as<T>();
         }
     }
 }
