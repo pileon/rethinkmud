@@ -16,6 +16,14 @@ namespace rethinkmud
 {
     namespace config
     {
+        /**
+         * \brief Default values for configuration options
+         */
+        namespace default_values
+        {
+            constexpr unsigned short port = 4000;
+        }
+
         namespace
         {
             auto get_command_line_options(std::string const &argv0)
@@ -41,7 +49,7 @@ namespace rethinkmud
             {
                 po::options_description common{"Common options"};
                 common.add_options()
-                    ("port,p", po::value<int>()->default_value(4000), "main port number");
+                    ("port,p", po::value<int>()->default_value(default_values::port), "main port number");
 
                 return common;
             }
