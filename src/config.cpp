@@ -47,8 +47,8 @@ namespace rethinkmud
                 config.add_options()
                     ("mud.name", po::value<std::string>()->default_value(default_values::mud_name), "name of the MUD")
                     ("mud.version", po::value<std::string>()->default_value(default_values::mud_version), "version of the MUD")
-                    ("admin.name", po::value<std::string>(), "name of the MUD administrator")
-                    ("admin.email", po::value<std::string>(), "email of the MUD administrator");
+                    ("mud.admin.name", po::value<std::string>(), "name of the MUD administrator")
+                    ("mud.admin.email", po::value<std::string>(), "email of the MUD administrator");
 
                 return config;
             }
@@ -122,7 +122,7 @@ namespace rethinkmud
 
             if (config_vm.count("version"))
             {
-                std::cout << config::get<std::string>("name") << " version " << get<std::string>("mud.version") << '\n';
+                std::cout << config::get<std::string>("mud.name") << " version " << get<std::string>("mud.version") << '\n';
                 std::cout << "Based on RethinkMUD version " << RETHINKMUD_VERSION << '\n';
                 std::exit(0);
             }
