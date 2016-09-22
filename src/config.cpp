@@ -19,6 +19,7 @@ namespace rethinkmud
         {
             unsigned short const port = 4000;
             std::string const mud_name = "UnknownMUD";
+            std::string const mud_version = "1.0.0";
         }
 
         /////////////////////////////////////////////////////////////
@@ -44,7 +45,8 @@ namespace rethinkmud
             {
                 po::options_description config;
                 config.add_options()
-                    ("name", po::value<std::string>()->default_value(default_values::mud_name), "name of the MUD")
+                    ("mud.name", po::value<std::string>()->default_value(default_values::mud_name), "name of the MUD")
+                    ("mud.version", po::value<std::string>()->default_value(default_values::mud_version), "version of the MUD")
                     ("admin.name", po::value<std::string>(), "name of the MUD administrator")
                     ("admin.email", po::value<std::string>(), "email of the MUD administrator");
 
@@ -81,17 +83,11 @@ namespace rethinkmud
                 std::exit(1);
             }
 
-            po::notify(config_vm);
+            //po::notify(config_vm);
 
             if (config_vm.count("help"))
             {
                 std::cout << options << '\n';
-                std::exit(0);
-            }
-
-            if (config_vm.count("version"))
-            {
-                std::cout << "RethinkMUD version " << RETHINKMUD_VERSION << '\n';
                 std::exit(0);
             }
 
@@ -110,8 +106,26 @@ namespace rethinkmud
                 }
             }
 
+            po::notify(config_vm);
+
+            if (!exists("mud.name"))
+            {
+                set("name", default_values::mud_name);
+            }
+
+            if (!exists("mud.version"))
+            {
+                set("mud.version", default_values::mud_version);
+            }
+
             // TODO: Environment variables?
 
+            if (config_vm.count("version"))
+            {
+                std::cout << config::get<std::string>("name") << " version " << get<std::string>("mud.version") << '\n';
+                std::cout << "Based on RethinkMUD version " << RETHINKMUD_VERSION << '\n';
+                std::exit(0);
+            }
         }
 
         po::variables_map& get_config_vm()

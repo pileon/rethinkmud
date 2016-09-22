@@ -46,7 +46,11 @@ namespace rethinkmud
         template<typename T>
         void set(std::string const& name, T const& value)
         {
-            get_config_vm()[name].as<T>() = value;
+            auto p = get_config_vm().find(name);
+            if (p == get_config_vm().end())
+            {
+                get_config_vm().insert({name, boost::program_options::variable_value{value, false}});
+            }
         }
 
         /**
