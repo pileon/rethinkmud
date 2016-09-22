@@ -1,10 +1,10 @@
 #include "autoconf.h"
 #include "config.h"
 
-#include <boost/program_options.hpp>
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <boost/program_options.hpp>
 
 namespace po = boost::program_options;
 
@@ -17,7 +17,8 @@ namespace rethinkmud
          */
         namespace default_values
         {
-            constexpr unsigned short port = 4000;
+            unsigned short const port = 4000;
+            std::string const mud_name = "UnknownMUD";
         }
 
         /////////////////////////////////////////////////////////////
@@ -42,6 +43,11 @@ namespace rethinkmud
             auto get_config_options()
             {
                 po::options_description config;
+                config.add_options()
+                    ("name", po::value<std::string>()->default_value(default_values::mud_name), "name of the MUD")
+                    ("admin.name", po::value<std::string>(), "name of the MUD administrator")
+                    ("admin.email", po::value<std::string>(), "email of the MUD administrator");
+
                 return config;
             }
 
@@ -89,6 +95,7 @@ namespace rethinkmud
                 std::exit(0);
             }
 
+            // TODO: If file is not found, do a search using e.g. $HOME/.rethinkmudrc and /etc/rethinmudrc?
             std::ifstream config_file{config_vm["config"].as<std::string>()};
             if (config_file)
             {
@@ -107,10 +114,9 @@ namespace rethinkmud
 
         }
 
-        template<typename T>
-        T get(std::string name)
+        po::variables_map& get_config_vm()
         {
-            return config_vm[name].as<T>();
+            return config_vm;
         }
     }
 }

@@ -2,6 +2,7 @@
 #define RETHINKMUD_CONFIG_H
 
 #include <string>
+#include <boost/program_options/variables_map.hpp>
 
 namespace rethinkmud
 {
@@ -18,13 +19,47 @@ namespace rethinkmud
         void load(int argc, char* argv[]);
 
         /**
+         * \brief Get the configuration internal variables map
+         * \return the variables map
+         * \private
+         */
+        boost::program_options::variables_map& get_config_vm();
+
+        /**
          * \brief Get a configuration variable
          * \tparam T the type of the variable
          * \param name the name of the variable
          * \return the value of the variable
          */
         template<typename T>
-        T get(std::string name);
+        T const& get(std::string const& name)
+        {
+            return get_config_vm()[name].as<T>();
+        }
+
+        /**
+         * \brief Set a configuration variable to a specific value
+         * \tparam T type of the configuration variable
+         * \param name name of the configuration variable
+         * \param value the new value of the cofiguration variable
+         */
+        template<typename T>
+        void set(std::string const& name, T const& value)
+        {
+            get_config_vm()[name].as<T>() = value;
+        }
+
+        /**
+         * \brief Check if a configration variable exists
+         * \param name the name of the configuration variable to search for
+         * \return if the variable exists or not
+         * \retval true the variable exists
+         * \retval false the variable doesn't exist
+         */
+        inline bool exists(std::string const& name)
+        {
+            return get_config_vm().count(name) > 0;
+        }
     }
 }
 

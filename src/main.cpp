@@ -13,7 +13,8 @@ int main(int argc, char** argv)
     using namespace rethinkmud;
     config::load(argc, argv);
 
-    std::cout << "RethinkMUD version " << RETHINKMUD_VERSION << '\n';
+    std::cout << config::get<std::string>("name") << " starting up.\n";
+    std::cout << "Based on RethinkMUD version " << RETHINKMUD_VERSION << '\n';
 
     try
     {
