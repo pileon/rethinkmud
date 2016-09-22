@@ -48,7 +48,9 @@ namespace rethinkmud
                     ("mud.name", po::value<std::string>()->default_value(default_values::mud_name), "name of the MUD")
                     ("mud.version", po::value<std::string>()->default_value(default_values::mud_version), "version of the MUD")
                     ("mud.admin.name", po::value<std::string>(), "name of the MUD administrator")
-                    ("mud.admin.email", po::value<std::string>(), "email of the MUD administrator");
+                    ("mud.admin.email", po::value<std::string>(), "email of the MUD administrator")
+
+                    ("net.telnet.port", po::value<int>()->default_value(default_values::port), "main telnet port");
 
                 return config;
             }
@@ -60,6 +62,24 @@ namespace rethinkmud
                     ("port,p", po::value<int>()->default_value(default_values::port), "main port number");
 
                 return common;
+            }
+
+            void set_default_values()
+            {
+                if (!exists("mud.name"))
+                {
+                    set("mud.name", default_values::mud_name);
+                }
+
+                if (!exists("mud.version"))
+                {
+                    set("mud.version", default_values::mud_version);
+                }
+
+                if (!exists("net.telnet.port"))
+                {
+                    set("net.telnet.port", get<int>("port"));
+                }
             }
         }
 
@@ -108,17 +128,9 @@ namespace rethinkmud
 
             po::notify(config_vm);
 
-            if (!exists("mud.name"))
-            {
-                set("name", default_values::mud_name);
-            }
-
-            if (!exists("mud.version"))
-            {
-                set("mud.version", default_values::mud_version);
-            }
-
             // TODO: Environment variables?
+
+            set_default_values();
 
             if (config_vm.count("version"))
             {
