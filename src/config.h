@@ -51,6 +51,10 @@ namespace rethinkmud
             {
                 get_config_vm().insert({name, boost::program_options::variable_value{value, false}});
             }
+            else
+            {
+                p->second = boost::program_options::variable_value{value, false};
+            }
         }
 
         /**
