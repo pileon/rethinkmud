@@ -2,7 +2,9 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src/include/autoconf.h.in" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/include/log.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/config.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/net/telnet.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/net/tcp.h" isTestSource="false" />
@@ -11,13 +13,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/include/net/connection.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/net/server.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/rethinkmud.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/include/autoconf.h.in" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/rethinkdbxx.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/net-test.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/network.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/telnet.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/log.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/config.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />

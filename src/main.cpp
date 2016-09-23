@@ -36,6 +36,7 @@ namespace
     void init(int argc, char* argv[])
     {
         config::load(argc, argv);
+        log::init();
         net::init();
 
         signal_setup();
@@ -54,6 +55,7 @@ namespace
     void clean()
     {
         net::clean();
+        log::clean();
     }
 }
 
