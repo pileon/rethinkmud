@@ -62,9 +62,22 @@ int main(int argc, char** argv)
         std::cerr << "Could not connect to server: " << e.message << '\n';
     }
 
+    while (run_server)
+    {
+
+    }
+
     stop();
 
     clean();
 
     return 0;
+}
+
+namespace rethinkmud
+{
+    void shutdown()
+    {
+        run_server = false;
+    }
 }
