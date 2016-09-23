@@ -1,5 +1,4 @@
-#include "autoconf.h"
-#include "config.h"
+#include "rethinkmud.h"
 #include "net/network.h"
 
 #include "rethinkdbxx.h"
@@ -18,6 +17,12 @@ namespace
     {
         config::load(argc, argv);
         net::init();
+
+
+        //struct sigaction sa = {};
+        //sa.sa_handler = [](int) { std::cout << "SIGINT\n"; exit_program = true; };
+        //sa.sa_flags   = SA_RESETHAND | SA_RESTART;
+        //sigaction(SIGINT, &sa, nullptr);
     }
 
     void boot()
