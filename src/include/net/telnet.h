@@ -65,7 +65,9 @@ namespace rethinkmud
             public:
                 explicit telnet(unsigned short port)
                     : tcp_v4<connections::telnet>{port}
-                {}
+                {
+                    std::clog << "Telnet server listening on port " << port << '\n';
+                }
 
                 ~telnet()
                 {}

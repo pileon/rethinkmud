@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/include/net/ip.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/net/connection.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/net/server.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/include/rethinkmud.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/rethinkdbxx.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/net-test.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/network.cpp" isTestSource="false" />

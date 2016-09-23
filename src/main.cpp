@@ -1,5 +1,6 @@
 #include "autoconf.h"
 #include "config.h"
+#include "net/network.h"
 
 #include "rethinkdbxx.h"
 
@@ -7,15 +8,43 @@
 #include <experimental/filesystem>
 
 namespace R = RethinkDB;
+using namespace rethinkmud;
+
+namespace
+{
+    bool run_server = true;
+
+    void init(int argc, char* argv[])
+    {
+        config::load(argc, argv);
+        net::init();
+    }
+
+    void boot()
+    {
+        net::start();
+    }
+
+    void stop()
+    {
+        net::stop();
+    }
+
+    void clean()
+    {
+        net::clean();
+    }
+}
 
 int main(int argc, char** argv)
 {
-    using namespace rethinkmud;
-    config::load(argc, argv);
+    init(argc, argv);
 
     std::cout << config::get<std::string>("mud.name") << " version " << config::get<std::string>("mud.version") << " is starting up\n";
     std::cout << "Based on RethinkMUD version " << RETHINKMUD_VERSION << '\n';
     std::cout << "Administrated by " << config::get<std::string>("mud.admin.name") << " <" << config::get<std::string>("mud.admin.email") << ">\n";
+
+    boot();
 
     try
     {
@@ -32,6 +61,10 @@ int main(int argc, char** argv)
     {
         std::cerr << "Could not connect to server: " << e.message << '\n';
     }
+
+    stop();
+
+    clean();
 
     return 0;
 }

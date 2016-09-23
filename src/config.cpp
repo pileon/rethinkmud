@@ -50,7 +50,7 @@ namespace rethinkmud
                     ("mud.admin.name", po::value<std::string>(), "name of the MUD administrator")
                     ("mud.admin.email", po::value<std::string>(), "email of the MUD administrator")
 
-                    ("net.telnet.port", po::value<int>(), "main telnet port");
+                    ("net.telnet.port", po::value<unsigned short>(), "main telnet port");
 
                 return config;
             }
@@ -59,7 +59,7 @@ namespace rethinkmud
             {
                 po::options_description common{"Common options"};
                 common.add_options()
-                    ("port,p", po::value<int>()->default_value(default_values::port), "main port number");
+                    ("port,p", po::value<unsigned short>()->default_value(default_values::port), "main port number");
 
                 return common;
             }
@@ -76,9 +76,9 @@ namespace rethinkmud
                     set("mud.version", default_values::mud_version);
                 }
 
-                if (!exists("net.telnet.port") || get<int>("port") != default_values::port)
+                if (!exists("net.telnet.port") || get<unsigned short>("port") != default_values::port)
                 {
-                    set("net.telnet.port", get<int>("port"));
+                    set("net.telnet.port", get<unsigned short>("port"));
                 }
             }
         }
