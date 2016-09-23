@@ -1,6 +1,6 @@
 find_package(Boost 1.60
         REQUIRED
-        COMPONENTS program_options
+        COMPONENTS program_options log log_setup
         )
 
 check_include_file_cxx(boost/program_options.hpp HAVE_BOOST_PROGRAM_OPTIONS_HPP)
