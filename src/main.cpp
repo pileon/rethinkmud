@@ -16,11 +16,19 @@ namespace
     void signal_setup()
     {
         struct sigaction sa = {};
-        sa.sa_handler = [](int sig) { std::cout << "Received termination signal " << strsignal(sig) << std::endl; run_server = false; };
+        sa.sa_handler = [](int sig)
+        {
+            std::cout << std::flush;
+            std::clog << std::flush;
+            psignal(sig, "Received termination signal");
+            run_server = false;
+        };
         sa.sa_flags   = SA_RESTART;
         sigaction(SIGINT, &sa, nullptr);
         sigaction(SIGTERM, &sa, nullptr);
+        sigaction(SIGHUP, &sa, nullptr);
 
+        // We want to get an error when writing to a closed network connection, not a signal
         sa.sa_handler = SIG_IGN;
         sigaction(SIGPIPE, &sa, nullptr);
     }
