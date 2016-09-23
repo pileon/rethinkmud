@@ -20,12 +20,12 @@ void rethinkmud::net::init()
 
 void rethinkmud::net::start()
 {
+    all_servers.emplace_back(std::make_unique<servers::telnet>(config::get<unsigned short>("net.telnet.port")));
+
     io_service_thread = std::thread{[]() {
         while (!io_service.stopped())
             io_service.run();
     }};
-
-    all_servers.emplace_back(std::make_unique<servers::telnet>(config::get<unsigned short>("net.telnet.port")));
 }
 
 void rethinkmud::net::stop()

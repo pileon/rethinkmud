@@ -13,16 +13,24 @@ namespace
 {
     bool run_server = true;
 
+    void signal_setup()
+    {
+        struct sigaction sa = {};
+        sa.sa_handler = [](int sig) { std::cout << "Received termination signal " << strsignal(sig) << std::endl; run_server = false; };
+        sa.sa_flags   = SA_RESTART;
+        sigaction(SIGINT, &sa, nullptr);
+        sigaction(SIGTERM, &sa, nullptr);
+
+        sa.sa_handler = SIG_IGN;
+        sigaction(SIGPIPE, &sa, nullptr);
+    }
+
     void init(int argc, char* argv[])
     {
         config::load(argc, argv);
         net::init();
 
-
-        //struct sigaction sa = {};
-        //sa.sa_handler = [](int) { std::cout << "SIGINT\n"; exit_program = true; };
-        //sa.sa_flags   = SA_RESETHAND | SA_RESTART;
-        //sigaction(SIGINT, &sa, nullptr);
+        signal_setup();
     }
 
     void boot()
@@ -48,6 +56,8 @@ int main(int argc, char** argv)
     std::cout << config::get<std::string>("mud.name") << " version " << config::get<std::string>("mud.version") << " is starting up\n";
     std::cout << "Based on RethinkMUD version " << RETHINKMUD_VERSION << '\n';
     std::cout << "Administrated by " << config::get<std::string>("mud.admin.name") << " <" << config::get<std::string>("mud.admin.email") << ">\n";
+    std::cout << "Server running pid " << getpid() << '\n';
+    std::cout << std::flush;
 
     boot();
 
@@ -69,13 +79,17 @@ int main(int argc, char** argv)
 
     while (run_server)
     {
-
+        pause();
     }
+
+    std::cout << std::flush;
+    std::cout << "Shuting down server...\n";
 
     stop();
 
     clean();
 
+    std::cout << "All done" << std::endl;
     return 0;
 }
 
