@@ -1,6 +1,7 @@
 #include "net/network.h"
 #include "net/server.h"
 #include "net/telnet.h"
+#include "config.h"
 
 #include <thread>
 
@@ -15,11 +16,12 @@ namespace
 
 void rethinkmud::net::init()
 {
-    all_servers.emplace_back(new servers::telnet{4000});
 }
 
 void rethinkmud::net::start()
 {
+    all_servers.emplace_back(std::make_unique<servers::telnet>(config::get<unsigned short>("net.telnet.port")));
+
     io_service_thread = std::thread{[]() {
         while (!io_service.stopped())
             io_service.run();
