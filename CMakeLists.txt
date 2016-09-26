@@ -1,7 +1,21 @@
-cmake_minimum_required(VERSION 3.6)
-project(rethinkmud)
+cmake_minimum_required(VERSION 3.5)
+project(rethinkmud
+        VERSION 0.2.0
+        LANGUAGES CXX C)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+find_package(Threads)
 
-set(SOURCE_FILES main.cpp)
-add_executable(rethinkmud ${SOURCE_FILES})
+include(CheckIncludeFileCXX)
+
+include(cmake/BuildFlags.cmake)
+include(cmake/ASIO.cmake)
+include(cmake/ICU.cmake)
+include(cmake/Boost.cmake)
+
+add_subdirectory(rethinkdbxx)
+add_subdirectory(src)
+
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif()
