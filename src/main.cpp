@@ -63,43 +63,41 @@ int main(int argc, char** argv)
 {
     init(argc, argv);
 
-    std::cout << config::get<std::string>("mud.name") << " version " << config::get<std::string>("mud.version") << " is starting up\n";
-    std::cout << "Based on RethinkMUD version " << RETHINKMUD_VERSION << '\n';
-    std::cout << "Administrated by " << config::get<std::string>("mud.admin.name") << " <" << config::get<std::string>("mud.admin.email") << ">\n";
-    std::cout << "Server running pid " << getpid() << '\n';
-    std::cout << std::flush;
+    log::info() << config::get<std::string>("mud.name") << " version " << config::get<std::string>("mud.version") << " is starting up";
+    log::info() << "Based on RethinkMUD version " << RETHINKMUD_VERSION;
+    log::info() << "Administrated by " << config::get<std::string>("mud.admin.name") << " <" << config::get<std::string>("mud.admin.email");
+    log::debug() << "Server running pid " << getpid();
 
     boot();
 
-    try
-    {
-        auto conn = R::connect();
+    //try
+    //{
+    //    auto conn = R::connect();
+    //
+    //    std::cout << "Connected\n" << std::flush;
+    //    auto databases = R::db_list().run(*conn);
+    //    for (auto const& db : databases)
+    //    {
+    //        std::cout << *db.get_string() << '\n';
+    //    }
+    //}
+    //catch (R::Error& e)
+    //{
+    //    std::cerr << "Could not connect to server: " << e.message << '\n';
+    //}
+    //
+    //while (run_server)
+    //{
+    //    pause();
+    //}
 
-        std::cout << "Connected\n" << std::flush;
-        auto databases = R::db_list().run(*conn);
-        for (auto const& db : databases)
-        {
-            std::cout << *db.get_string() << '\n';
-        }
-    }
-    catch (R::Error& e)
-    {
-        std::cerr << "Could not connect to server: " << e.message << '\n';
-    }
-
-    while (run_server)
-    {
-        pause();
-    }
-
-    std::cout << std::flush;
-    std::cout << "Shuting down server...\n";
+    log::info() << "Shuting down server...";
 
     stop();
 
     clean();
 
-    std::cout << "All done" << std::endl;
+    log::info() << "All done";
     return 0;
 }
 

@@ -23,6 +23,17 @@
       <sourceFolder url="file://$MODULE_DIR$/src/config.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/rethinkdbxx/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/rethinkmud/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/rethinkmud/dummy.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googlemock/src/gmock-all.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googlemock/src/gmock_main.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googlemock/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/src/gtest_main.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/src/gtest-all.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/cmake/internal_utils.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/ICU.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/Boost.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/BuildFlags.cmake" isTestSource="false" />
@@ -34,10 +45,14 @@
       <library name="Header Search Paths">
         <CLASSES>
           <root url="file:///usr/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/6/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/6/include" />
           <root url="file:///usr/local/include" />
         </CLASSES>
         <SOURCES>
           <root url="file:///usr/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/6/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/6/include" />
           <root url="file:///usr/local/include" />
         </SOURCES>
       </library>

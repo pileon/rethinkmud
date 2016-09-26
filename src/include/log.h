@@ -1,9 +1,8 @@
 #ifndef RETHINKMUD_LOG_H
 #define RETHINKMUD_LOG_H
 
-#include <sstream>
 #include <boost/log/trivial.hpp>
-#include <boost/log/sources/logger.hpp>
+#include <boost/log/sources/severity_channel_logger.hpp>
 
 namespace rethinkmud
 {
@@ -12,39 +11,49 @@ namespace rethinkmud
         void init();
         void clean();
 
-        boost::log::sources::logger_mt& get_logger();
+        using logger_type = boost::log::sources::severity_channel_logger_mt<boost::log::trivial::severity_level>;
+        logger_type get_logger(std::string const& name = "");
 
         class logger
         {
         public:
-            logger(boost::log::trivial::severity_level const& severity)
-                : oss_{},
-                  severity_{severity}
+            logger(boost::log::trivial::severity_level severity)
+                : logger_{get_logger()},
+                  rec_{logger_.open_record(boost::log::keywords::severity = severity)},
+                  ros_{rec_}
             {}
 
             logger(logger&& l)
-                : oss_{std::move(l.oss_)},
-                  severity_{l.severity_}
+                : logger_{std::move(l.logger_)},
+                  rec_{std::move(l.rec_)},
+                  ros_{rec_}
             {}
 
             ~logger()
             {
-                BOOST_LOG(get_logger()) << oss_.str();
+                ros_.flush();
+                logger_.push_record(std::move(rec_));
             }
 
             template<typename T>
             logger& operator<<(T const& x)
             {
-                oss_ << x;
+                ros_ << x;
                 return *this;
             }
 
         private:
-            std::ostringstream oss_;
-            boost::log::trivial::severity_level const& severity_;
+            logger_type logger_;
+            boost::log::record rec_;
+            boost::log::record_ostream ros_;
         };
 
-        inline logger info() { return logger{boost::log::trivial::info}; }
+        inline logger info   () { return logger{boost::log::trivial::info   }; }
+        inline logger debug  () { return logger{boost::log::trivial::debug  }; }
+        inline logger error  () { return logger{boost::log::trivial::error  }; }
+        inline logger trace  () { return logger{boost::log::trivial::trace  }; }
+        inline logger warning() { return logger{boost::log::trivial::warning}; }
+        inline logger fatal  () { return logger{boost::log::trivial::fatal  }; }
     }
 }
 
