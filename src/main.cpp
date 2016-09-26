@@ -20,7 +20,7 @@ namespace
         {
             std::cout << std::flush;
             std::clog << std::flush;
-            psignal(sig, "Received termination signal");
+            log::fatal() << "Received termination signal: " << strsignal(sig) << " (" << sig << ')';
             run_server = false;
         };
         sa.sa_flags   = SA_RESTART;
@@ -85,11 +85,11 @@ int main(int argc, char** argv)
     //{
     //    std::cerr << "Could not connect to server: " << e.message << '\n';
     //}
-    //
-    //while (run_server)
-    //{
-    //    pause();
-    //}
+
+    while (run_server)
+    {
+        pause();
+    }
 
     log::info() << "Shutting down server...";
 
