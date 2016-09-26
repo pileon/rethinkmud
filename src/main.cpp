@@ -65,7 +65,7 @@ int main(int argc, char** argv)
 
     log::info() << config::get<std::string>("mud.name") << " version " << config::get<std::string>("mud.version") << " is starting up";
     log::info() << "Based on RethinkMUD version " << RETHINKMUD_VERSION;
-    log::info() << "Administrated by " << config::get<std::string>("mud.admin.name") << " <" << config::get<std::string>("mud.admin.email");
+    log::info() << "Administrated by " << config::get<std::string>("mud.admin.name") << " <" << config::get<std::string>("mud.admin.email") << '>';
     log::debug() << "Server running pid " << getpid();
 
     boot();
