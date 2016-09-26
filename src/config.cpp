@@ -36,7 +36,9 @@ namespace rethinkmud
                 options.add_options()
                     ("help,h", "show help message")
                     ("version,v", "show program version")
-                    ("config,c", po::value<std::string>()->default_value(default_config_file), "configuration file");
+                    ("config,c", po::value<std::string>()->default_value(default_config_file), "configuration file")
+                    ("log-file,l", po::value<std::string>(), "log file")
+                    ("no-stdlog,L", "no logging output to standard output");
 
                 return options;
             }

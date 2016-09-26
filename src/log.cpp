@@ -6,6 +6,7 @@
 #include <boost/log/sinks/text_ostream_backend.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <boost/core/null_deleter.hpp>
+#include <fstream>
 
 namespace bl = boost::log;
 
@@ -20,7 +21,17 @@ namespace rethinkmud
             using text_sink_type = bl::sinks::synchronous_sink<bl::sinks::text_ostream_backend>;
             auto sink = boost::make_shared<text_sink_type>();
 
-            sink->locked_backend()->add_stream(boost::shared_ptr< std::ostream >(&std::clog, boost::null_deleter()));
+            if (!config::exists("no-stdlog"))
+            {
+                sink->locked_backend()->add_stream(boost::shared_ptr<std::ostream>(&std::clog, boost::null_deleter()));
+            }
+
+            if (config::exists("log-file"))
+            {
+                sink->locked_backend()->add_stream(
+                    boost::make_shared<std::ofstream>(config::get<std::string>("log-file"))
+                );
+            }
 
             sink->set_formatter(
                 bl::expressions::stream
