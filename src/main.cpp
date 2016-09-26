@@ -91,7 +91,7 @@ int main(int argc, char** argv)
     //    pause();
     //}
 
-    log::info() << "Shuting down server...";
+    log::info() << "Shutting down server...";
 
     stop();
 
