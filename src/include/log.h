@@ -12,13 +12,13 @@ namespace rethinkmud
         void clean();
 
         using logger_type = boost::log::sources::severity_channel_logger_mt<boost::log::trivial::severity_level>;
-        logger_type get_logger(std::string const& name = "");
+        logger_type get_logger(std::string const& name = "general");
 
         class logger
         {
         public:
-            logger(boost::log::trivial::severity_level severity)
-                : logger_{get_logger()},
+            logger(boost::log::trivial::severity_level severity, std::string const& channel = "general")
+                : logger_{get_logger(channel)},
                   rec_{logger_.open_record(boost::log::keywords::severity = severity)},
                   ros_{rec_}
             {}
@@ -48,12 +48,12 @@ namespace rethinkmud
             boost::log::record_ostream ros_;
         };
 
-        inline logger info   () { return logger{boost::log::trivial::info   }; }
-        inline logger debug  () { return logger{boost::log::trivial::debug  }; }
-        inline logger error  () { return logger{boost::log::trivial::error  }; }
-        inline logger trace  () { return logger{boost::log::trivial::trace  }; }
-        inline logger warning() { return logger{boost::log::trivial::warning}; }
-        inline logger fatal  () { return logger{boost::log::trivial::fatal  }; }
+        inline logger info   (std::string const& channel = "general") { return logger{boost::log::trivial::info   , channel}; }
+        inline logger debug  (std::string const& channel = "general") { return logger{boost::log::trivial::debug  , channel}; }
+        inline logger error  (std::string const& channel = "general") { return logger{boost::log::trivial::error  , channel}; }
+        inline logger trace  (std::string const& channel = "general") { return logger{boost::log::trivial::trace  , channel}; }
+        inline logger warning(std::string const& channel = "general") { return logger{boost::log::trivial::warning, channel}; }
+        inline logger fatal  (std::string const& channel = "general") { return logger{boost::log::trivial::fatal  , channel}; }
     }
 }
 
