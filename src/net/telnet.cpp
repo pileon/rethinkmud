@@ -1,5 +1,5 @@
+#include "rethinkmud.h"
 #include "net/telnet.h"
-#include "autoconf.h"
 
 #define TELCMDS  // To get the array of Telnet command names
 #define TELOPTS  // To get the array of Telnet option names

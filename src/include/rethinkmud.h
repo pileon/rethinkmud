@@ -3,6 +3,7 @@
 
 #include "autoconf.h"
 #include "config.h"
+#include "log.h"
 
 namespace rethinkmud
 {

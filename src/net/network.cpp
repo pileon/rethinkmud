@@ -1,7 +1,7 @@
+#include "rethinkmud.h"
 #include "net/network.h"
 #include "net/server.h"
 #include "net/telnet.h"
-#include "config.h"
 
 #include <thread>
 
