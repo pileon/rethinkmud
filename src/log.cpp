@@ -30,8 +30,6 @@ namespace rethinkmud
             );
 
             bl::core::get()->add_sink(sink);
-
-            info() << "Hello world";
         }
 
         void clean()
