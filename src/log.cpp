@@ -21,15 +21,15 @@ namespace rethinkmud
             using text_sink_type = bl::sinks::synchronous_sink<bl::sinks::text_ostream_backend>;
             auto sink = boost::make_shared<text_sink_type>();
 
-            if (!config::exists("no-stdlog"))
+            if (!config::get<bool>("log.inhibit-stdlog"))
             {
                 sink->locked_backend()->add_stream(boost::shared_ptr<std::ostream>(&std::clog, boost::null_deleter()));
             }
 
-            if (config::exists("log-file"))
+            if (config::exists("log.file") && !config::get<std::string>("log.file").empty())
             {
                 sink->locked_backend()->add_stream(
-                    boost::make_shared<std::ofstream>(config::get<std::string>("log-file"))
+                    boost::make_shared<std::ofstream>(config::get<std::string>("log.file"))
                 );
             }
 

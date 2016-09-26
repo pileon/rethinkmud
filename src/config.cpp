@@ -52,7 +52,10 @@ namespace rethinkmud
                     ("mud.admin.name", po::value<std::string>(), "name of the MUD administrator")
                     ("mud.admin.email", po::value<std::string>(), "email of the MUD administrator")
 
-                    ("net.telnet.port", po::value<unsigned short>(), "main telnet port");
+                    ("net.telnet.port", po::value<unsigned short>(), "main telnet port")
+
+                    ("log.file", po::value<std::string>(), "log file")
+                    ("log.inhibit-stdlog", po::value<bool>()->default_value(false), "inhibit logging to standard output");
 
                 return config;
             }
@@ -81,6 +84,16 @@ namespace rethinkmud
                 if (!exists("net.telnet.port") || get<unsigned short>("port") != default_values::port)
                 {
                     set("net.telnet.port", get<unsigned short>("port"));
+                }
+
+                if (exists("log-file"))
+                {
+                    set("log.file", get<std::string>("log-file"));
+                }
+
+                if (exists("no-stdlog"))
+                {
+                    set("log.inhibit-stdlog", true);
                 }
             }
         }
