@@ -48,7 +48,7 @@ namespace rethinkmud
 
         }
 
-        logger_type get_logger([[maybe_unused]] std::string const& name /* = "general" */)
+        logger_type get_logger([[gnu::unused]] std::string const& name /* = "general" */)
         {
             return logger_type{
                 bl::keywords::channel = name

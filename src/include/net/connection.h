@@ -51,7 +51,7 @@ namespace rethinkmud
                  *
                  * \param ec Reason for ending the connection
                  */
-                virtual void end([[maybe_unused]] std::error_code const& ec) const
+                virtual void end([[gnu::unused]] std::error_code const& ec) const
                 {
                 }
 
