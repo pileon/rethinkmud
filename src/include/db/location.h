@@ -13,9 +13,9 @@ namespace rethinkmud
         };
 
         template<typename T>
-        bool is_location(T&&)
+        auto is_location(T&&)
         {
-            return std::is_same<T, location>::value;
+            return std::is_same<typename std::remove_reference<T>::type, location>::value;
         }
     }
 }
