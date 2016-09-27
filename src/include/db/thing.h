@@ -35,11 +35,13 @@ namespace rethinkmud
     {
         /**
          * \brief A thing in the MUD world
+         * \tparam traitsT Traits class for the thing
          *
          * Things have attributes. Some attributes are simple, like a string
          * describing the thing, or it can be complex like a container of
          * other things. All attributes have a name.
          */
+        template<typename traitsT>
         class thing
         {
         public:
