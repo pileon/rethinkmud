@@ -1,6 +1,6 @@
 #include "rethinkmud.h"
 #include "net/network.h"
-#include "db/thing.h"
+#include "db/location.h"
 
 #include "rethinkdbxx.h"
 
@@ -86,6 +86,9 @@ int main(int argc, char** argv)
     //{
     //    std::cerr << "Could not connect to server: " << e.message << '\n';
     //}
+
+    db::location l;
+    log::debug() << "l is a location: " << std::boolalpha << is_location(l);
 
     while (run_server)
     {

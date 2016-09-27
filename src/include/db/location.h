@@ -7,10 +7,16 @@ namespace rethinkmud
 {
     namespace db
     {
-        class location : public thing
+        class location : public thing<location>
         {
 
         };
+
+        template<typename T>
+        bool is_location(T&&)
+        {
+            return std::is_same<T, location>::value;
+        }
     }
 }
 
