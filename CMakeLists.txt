@@ -12,6 +12,7 @@ include(cmake/ASIO.cmake)
 include(cmake/ICU.cmake)
 include(cmake/Boost.cmake)
 include(cmake/RapidJSON.cmake)
+include(cmake/stdcxx.cmake)
 
 add_subdirectory(rethinkdbxx)
 add_subdirectory(src)

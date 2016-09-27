@@ -1,5 +1,6 @@
 #include "rethinkmud.h"
 #include "net/network.h"
+#include "db/thing.h"
 
 #include "rethinkdbxx.h"
 

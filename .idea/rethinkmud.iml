@@ -36,6 +36,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/src/gtest-all.cc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/cmake/internal_utils.cmake" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cmake/stdcxx.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/ICU.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/Boost.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/BuildFlags.cmake" isTestSource="false" />
