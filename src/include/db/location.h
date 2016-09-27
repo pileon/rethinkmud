@@ -2,6 +2,7 @@
 #define RETHINKMUD_LOCATION_H
 
 #include "thing.h"
+#include "character.h"
 
 namespace rethinkmud
 {
@@ -9,7 +10,25 @@ namespace rethinkmud
     {
         class location : public thing<location>
         {
+        public:
+            template<typename T>
+            void add(T&& thing)
+            {
+                if (is_character(thing))
+                {
+                    if (get("characters"))
+                    {
+                        auto& characters = std::any_cast<std::vector<character*>>(*get("characters"));
+                        characters.push_back(&thing);
+                    }
+                    else
+                    {
+                        *get("characters") = std::vector<character*>{&thing};
+                    }
+                }
 
+                thing.get("location") = this;
+            }
         };
 
         template<typename T>

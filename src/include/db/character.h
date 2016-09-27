@@ -11,6 +11,12 @@ namespace rethinkmud
         {
 
         };
+
+        template<typename T>
+        auto is_character(T&&)
+        {
+            return std::is_same<typename std::remove_reference<T>::type, character>::value;
+        }
     }
 }
 
