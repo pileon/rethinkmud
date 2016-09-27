@@ -10,4 +10,4 @@ else()
 endif()
 
 #add_compile_options(${COMPILER_OPTIONS})
-#string(REPLACE ";" " " CMAKE_REQUIRED_FLAGS "${COMPILER_OPTIONS}")
+string(REPLACE ";" " " CMAKE_REQUIRED_FLAGS "${COMPILER_OPTIONS}")
