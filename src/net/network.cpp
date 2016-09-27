@@ -30,6 +30,7 @@ void rethinkmud::net::start()
 
 void rethinkmud::net::stop()
 {
+    log::info("net") << "Shutting down network";
     io_service.stop();
     io_service_thread.join();
 }
