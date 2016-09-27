@@ -12,22 +12,27 @@ namespace rethinkmud
         void clean();
 
         using logger_type = boost::log::sources::severity_channel_logger_mt<boost::log::trivial::severity_level>;
-        logger_type get_logger(std::string const& name = "general");
+        logger_type& get_logger();
 
         class logger
         {
         public:
             logger(boost::log::trivial::severity_level severity, std::string const& channel = "general")
-                : logger_{get_logger(channel)},
-                  rec_{logger_.open_record(boost::log::keywords::severity = severity)},
+                : logger_{get_logger()},
+                  rec_{logger_.open_record((
+                      boost::log::keywords::severity = severity,
+                      boost::log::keywords::channel  = channel
+                  ))},
                   ros_{rec_}
-            {}
+            {
+            }
 
             logger(logger&& l)
                 : logger_{std::move(l.logger_)},
                   rec_{std::move(l.rec_)},
                   ros_{rec_}
-            {}
+            {
+            }
 
             ~logger()
             {

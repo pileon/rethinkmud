@@ -14,6 +14,11 @@ namespace rethinkmud
 {
     namespace log
     {
+        namespace
+        {
+            logger_type logger_;
+        }
+
         void init()
         {
             bl::add_common_attributes();
@@ -48,11 +53,9 @@ namespace rethinkmud
 
         }
 
-        logger_type get_logger([[gnu::unused]] std::string const& name /* = "general" */)
+        logger_type& get_logger()
         {
-            return logger_type{
-                bl::keywords::channel = name
-            };
+            return logger_;
         }
     }
 }
