@@ -60,6 +60,11 @@ namespace rethinkmud
                 return get(name);
             }
 
+            std::unordered_map<std::string, std::any> const& attributes() const
+            {
+                return attributes_;
+            }
+
         private:
             std::unordered_map<std::string, std::any> attributes_;
 
