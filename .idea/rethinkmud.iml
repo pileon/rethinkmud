@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/db/location.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/include/db/character.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/db/thing.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/log.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/include/config.h" isTestSource="false" />
