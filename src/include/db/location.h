@@ -41,6 +41,10 @@ namespace rethinkmud
                 something.get("location") = this;
             }
 
+            void to_json(json::Document& doc) override
+            {
+            }
+
         private:
 
             void add_location_attributes()

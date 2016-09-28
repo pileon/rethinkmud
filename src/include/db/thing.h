@@ -29,6 +29,9 @@ namespace std
 }
 #endif
 
+#include <rapidjson/document.h>
+namespace json = rapidjson;
+
 namespace rethinkmud
 {
     namespace db
@@ -68,6 +71,8 @@ namespace rethinkmud
             //{
             //    return const_cast<std::any const&>(attributes_[name]);
             //}
+
+            virtual void to_json(json::Document&) = 0;
 
         private:
             std::unordered_map<std::string, std::any> attributes_;
