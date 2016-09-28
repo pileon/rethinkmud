@@ -18,31 +18,34 @@ namespace rethinkmud
             }
 
             template<typename T>
-            void to(T&& thing)
+            void to(T&& something)
             {
-                auto& current_location = thing["location"];
+                auto current_location = std::any_cast<thing*>(something["location"]);
                 if (current_location == this)
                 {
                     return;
                 }
 
-                if (is_character(thing))
+                if (is_character(something))
                 {
                     // Remove thing from current location
-                    std::any_cast<std::vector<character*>>(current_location["characters"]).erase(thing);
+                    if (current_location != nullptr)
+                    {
+                        std::any_cast<std::vector<character *>>(current_location->get("characters")).erase(something);
+                    }
 
                     // Add thing to this location
-                    std::any_cast<std::vector<character*>>((*this)["characters"]).push_back(&thing);
+                    std::any_cast<std::vector<character*>>(get("characters")).push_back(&something);
                 }
 
-                thing.get("location") = this;
+                something.get("location") = this;
             }
 
         private:
 
             void add_location_attributes()
             {
-                (*this)["characters"] = std::vector<character*>{};
+                get("characters") = std::vector<character*>{};
             }
         };
 

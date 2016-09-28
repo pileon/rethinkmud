@@ -54,9 +54,14 @@ namespace rethinkmud
             virtual ~thing()
             {}
 
-            std::any& operator[](std::string const& name)
+            std::any& get(std::string const& name)
             {
                 return attributes_[name];
+            }
+
+            std::any& operator[](std::string const& name)
+            {
+                return get(name);
             }
 
             //std::any const& operator[](std::string const& name) const
