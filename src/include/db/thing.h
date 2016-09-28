@@ -47,7 +47,9 @@ namespace rethinkmud
         public:
             thing()
                 : attributes_{}
-            {}
+            {
+                add_thing_attributes();
+            }
 
             virtual ~thing()
             {}
@@ -64,6 +66,12 @@ namespace rethinkmud
 
         private:
             std::unordered_map<std::string, std::any> attributes_;
+
+            void add_thing_attributes()
+            {
+                // All things have a location
+                attributes_["location"] = static_cast<thing*>(nullptr);
+            }
         };
     }
 }
