@@ -52,32 +52,18 @@ namespace rethinkmud
             virtual ~thing()
             {}
 
-            std::any* operator[](std::string const& name)
+            std::any& operator[](std::string const& name)
             {
-                return const_cast<std::any*>(get(name));
+                return attributes_[name];
             }
 
-            std::any const* operator[](std::string const& name) const
-            {
-                return get(name);
-            }
-
-            std::unordered_map<std::string, std::any> const& attributes() const
-            {
-                return attributes_;
-            }
+            //std::any const& operator[](std::string const& name) const
+            //{
+            //    return const_cast<std::any const&>(attributes_[name]);
+            //}
 
         private:
             std::unordered_map<std::string, std::any> attributes_;
-
-            std::any const* get(std::string const& name) const
-            {
-                auto iter = attributes_.find(name);
-                if (iter == std::end(attributes_))
-                    return nullptr;
-                else
-                    return &iter->second;
-            }
         };
     }
 }

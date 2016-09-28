@@ -11,23 +11,42 @@ namespace rethinkmud
         class location : public thing<location>
         {
         public:
-            template<typename T>
-            void add(T&& thing)
+            location()
+                : thing{}
             {
-                if (is_character(thing))
+                add_location_attributes();
+            }
+
+            template<typename T>
+            void to(T&& thing)
+            {
+                auto current_location = thing["location"];
+                if (current_location)
                 {
-                    if (get("characters"))
+                    if (current_location == this)
                     {
-                        auto& characters = std::any_cast<std::vector<character*>>(*get("characters"));
-                        characters.push_back(&thing);
+                        return;
                     }
-                    else
+
+                    if (is_character(thing))
                     {
-                        *get("characters") = std::vector<character*>{&thing};
+                        std::any_cast<std::vector<character*>>(current_location["characters"]).erase(thing);
                     }
                 }
 
+                if (is_character(thing))
+                {
+                    std::any_cast<std::vector<character*>>((*this)["characters"]).push_back(&thing);
+                }
+
                 thing.get("location") = this;
+            }
+
+        private:
+
+            void add_location_attributes()
+            {
+                (*this)["characters"] = std::vector<character*>{};
             }
         };
 
